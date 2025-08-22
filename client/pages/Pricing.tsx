@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft, FileText, Scale } from "lucide-react";
+import { ArrowLeft, FileText, IndianRupee } from "lucide-react";
 
-export default function Terms() {
+export default function Pricing() {
   const navigate = useNavigate();
 
   return (
@@ -38,56 +38,51 @@ export default function Terms() {
           <Card>
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
-                <Scale className="h-8 w-8 text-primary" />
+                <IndianRupee className="h-8 w-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl">Terms of Use</CardTitle>
+              <CardTitle className="text-3xl">Pricing Policy</CardTitle>
               <CardDescription>
-                Last updated: {new Date().toLocaleDateString()}
+                Transparent pricing for all our services
               </CardDescription>
             </CardHeader>
             <CardContent className="prose prose-gray max-w-none">
               <div className="space-y-8">
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Acceptance
+                    Overview
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    By using udin.in, you agree to abide by these terms. If you
-                    do not agree, please discontinue use.
+                    At udin.in, we ensure complete transparency in pricing. Our
+                    pricing model is structured to suit multiple document types
+                    and compliance requirements.
                   </p>
                 </section>
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    User Obligations
+                    Scope
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
+                    <li>Prices are quoted in Indian Rupees (INR)</li>
+                    <li>Applicable GST will be added wherever required</li>
                     <li>
-                      Provide genuine documents. Fake or fraudulent submissions
-                      will lead to termination and legal action.
+                      All service charges are listed clearly on the website
                     </li>
-                    <li>Maintain confidentiality of your login credentials.</li>
-                    <li>Ensure timely payment to avoid delays in services.</li>
                   </ul>
                 </section>
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Scope of Services
+                    Service Charges
                   </h2>
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    Our pricing covers the following service categories:
+                  </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>
-                      UDIN.in acts as a facilitator of document verification and
-                      signing.
-                    </li>
-                    <li>
-                      Responsibility is limited to delivering verified and
-                      digitally signed files.
-                    </li>
-                    <li>
-                      We do not represent or guarantee acceptance of documents
-                      by external authorities/regulators.
-                    </li>
+                    <li>Statutory Audit (turnover slabs)</li>
+                    <li>Tax Audit</li>
+                    <li>Balance Sheet (final & provisional)</li>
+                    <li>Auditor Appointment, ROC, Certificates, etc.</li>
                   </ul>
                 </section>
 
@@ -96,53 +91,28 @@ export default function Terms() {
                     Payment Terms
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Payments are non-transferable.</li>
+                    <li>100% advance payment is required for all services</li>
                     <li>
-                      Refunds, if applicable, are subject to the Refund Policy.
+                      Payments are processed through Razorpay or other
+                      RBI-approved payment gateways
+                    </li>
+                    <li>
+                      No hidden charges—if any additional charges apply, they
+                      are disclosed before checkout
                     </li>
                   </ul>
                 </section>
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Limitation of Liability
+                    Pricing Revision
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>
-                      UDIN.in shall not be liable for indirect, incidental, or
-                      consequential damages.
+                      Prices may be revised from time to time without prior
+                      notice
                     </li>
-                    <li>
-                      Our maximum liability is limited to the amount paid for
-                      the disputed service.
-                    </li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Prohibited Activities
-                  </h2>
-                  <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>
-                      Uploading malicious, offensive, or fraudulent content.
-                    </li>
-                    <li>
-                      Attempting to hack, reverse-engineer, or misuse the
-                      platform.
-                    </li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Governing Law & Jurisdiction
-                  </h2>
-                  <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Governed by the laws of India.</li>
-                    <li>
-                      Jurisdiction lies with courts in Kolkata, West Bengal.
-                    </li>
+                    <li>Revised pricing does not affect already-paid jobs</li>
                   </ul>
                 </section>
 
@@ -151,8 +121,7 @@ export default function Terms() {
                     Contact Information
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    If you have questions about these Terms of Use, please
-                    contact us:
+                    For pricing inquiries or clarifications, please contact us:
                   </p>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <p className="text-gray-700">

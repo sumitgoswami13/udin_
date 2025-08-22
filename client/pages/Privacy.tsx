@@ -49,18 +49,6 @@ export default function Privacy() {
               <div className="space-y-8">
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Introduction
-                  </h2>
-                  <p className="text-gray-700 leading-relaxed">
-                    UDIN.in is committed to protecting your privacy. This
-                    Privacy Policy explains how we collect, use, disclose, and
-                    safeguard your information when you use our document
-                    verification and signing services.
-                  </p>
-                </section>
-
-                <section>
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                     Information We Collect
                   </h2>
                   <div className="space-y-4">
@@ -84,12 +72,6 @@ export default function Privacy() {
                           Technical data (IP address, browser, device info)
                         </li>
                       </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        Technical Information
-                      </h3>
                     </div>
                   </div>
                 </section>
@@ -128,11 +110,8 @@ export default function Privacy() {
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Information Sharing
+                    Third-party Sharing
                   </h2>
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    We follow strict data sharing policies:
-                  </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>We do not sell user data</li>
                     <li>
@@ -144,12 +123,8 @@ export default function Privacy() {
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Your Rights
+                    User Rights
                   </h2>
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    You have the following rights regarding your personal
-                    information:
-                  </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Right to access and download stored documents</li>
                     <li>
@@ -178,20 +153,7 @@ export default function Privacy() {
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Changes to This Policy
-                  </h2>
-                  <p className="text-gray-700 leading-relaxed">
-                    We may update this Privacy Policy from time to time. We will
-                    notify you of any material changes by posting the new
-                    Privacy Policy on this page and updating the "Last updated"
-                    date. We encourage you to review this Privacy Policy
-                    periodically.
-                  </p>
-                </section>
-
-                <section>
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Contact Us
+                    Contact Information
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
                     If you have any questions about this Privacy Policy or our
