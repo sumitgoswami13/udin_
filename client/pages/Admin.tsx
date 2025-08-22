@@ -812,53 +812,65 @@ export default function Admin() {
                           className="cursor-pointer hover:bg-gray-50"
                           onClick={() => handleUserClick(user.id)}
                         >
-                          <TableCell>
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                                <User className="h-4 w-4 text-gray-600" />
+                          <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <User className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
                               </div>
-                              <div>
-                                <div className="font-medium">{user.name}</div>
-                                <div className="text-sm text-gray-500">
+                              <div className="min-w-0">
+                                <div className="font-medium text-sm sm:text-base truncate">{user.name}</div>
+                                <div className="text-xs sm:text-sm text-gray-500 truncate">
                                   {user.email}
+                                </div>
+                                <div className="text-xs text-gray-500 md:hidden">
+                                  {formatDate(user.joinDate)}
                                 </div>
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell>{formatDate(user.joinDate)}</TableCell>
-                          <TableCell className="text-center">
-                            <Badge variant="outline">
+                          <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">{formatDate(user.joinDate)}</TableCell>
+                          <TableCell className="text-center px-3 sm:px-6 py-3 sm:py-4">
+                            <Badge variant="outline" className="text-xs">
                               {user.totalDocuments}
                             </Badge>
+                            <div className="text-xs text-gray-500 sm:hidden mt-1">
+                              {user.pendingDocuments > 0 && (
+                                <span className="text-orange-600">P:{user.pendingDocuments}</span>
+                              )}
+                              {user.pendingDocuments > 0 && user.signedDocuments > 0 && <span> | </span>}
+                              {user.signedDocuments > 0 && (
+                                <span className="text-green-600">S:{user.signedDocuments}</span>
+                              )}
+                            </div>
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="hidden sm:table-cell text-center px-3 sm:px-6 py-3 sm:py-4">
                             {user.pendingDocuments > 0 ? (
                               <Badge
                                 variant="secondary"
-                                className="text-orange-700 bg-orange-50"
+                                className="text-orange-700 bg-orange-50 text-xs"
                               >
                                 {user.pendingDocuments}
                               </Badge>
                             ) : (
-                              <span className="text-gray-400">0</span>
+                              <span className="text-gray-400 text-sm">0</span>
                             )}
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="hidden lg:table-cell text-center px-3 sm:px-6 py-3 sm:py-4">
                             {user.signedDocuments > 0 ? (
                               <Badge
                                 variant="secondary"
-                                className="text-green-700 bg-green-50"
+                                className="text-green-700 bg-green-50 text-xs"
                               >
                                 {user.signedDocuments}
                               </Badge>
                             ) : (
-                              <span className="text-gray-400">0</span>
+                              <span className="text-gray-400 text-sm">0</span>
                             )}
                           </TableCell>
-                          <TableCell className="text-right font-medium">
+                          <TableCell className="hidden lg:table-cell text-right font-medium px-3 sm:px-6 py-3 sm:py-4 text-sm">
                             {formatCurrency(user.totalSpent)}
                           </TableCell>
-                          <TableCell className="text-sm text-gray-600">
+                          <TableCell className="hidden xl:table-cell text-sm text-gray-600 px-3 sm:px-6 py-3 sm:py-4">
                             {formatDate(user.lastActivity)}
                           </TableCell>
                         </TableRow>
