@@ -794,15 +794,15 @@ export default function Admin() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>User</TableHead>
-                        <TableHead>Join Date</TableHead>
-                        <TableHead className="text-center">Documents</TableHead>
-                        <TableHead className="text-center">Pending</TableHead>
-                        <TableHead className="text-center">Signed</TableHead>
-                        <TableHead className="text-right">
+                        <TableHead className="px-3 sm:px-6 py-3">User</TableHead>
+                        <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3">Join Date</TableHead>
+                        <TableHead className="text-center px-3 sm:px-6 py-3">Documents</TableHead>
+                        <TableHead className="hidden sm:table-cell text-center px-3 sm:px-6 py-3">Pending</TableHead>
+                        <TableHead className="hidden lg:table-cell text-center px-3 sm:px-6 py-3">Signed</TableHead>
+                        <TableHead className="hidden lg:table-cell text-right px-3 sm:px-6 py-3">
                           Total Spent
                         </TableHead>
-                        <TableHead>Last Activity</TableHead>
+                        <TableHead className="hidden xl:table-cell px-3 sm:px-6 py-3">Last Activity</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
