@@ -902,15 +902,15 @@ export default function Admin() {
 
             {/* Enhanced User Stats */}
             {currentUser && (
-              <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
                 <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-xs lg:text-sm font-medium text-gray-500">
+                  <CardHeader className="pb-1 sm:pb-2">
+                    <CardTitle className="text-xs sm:text-xs lg:text-sm font-medium text-gray-500">
                       Total Documents
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="text-xl lg:text-2xl font-bold">
+                  <CardContent className="pt-1 sm:pt-3">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold">
                       {currentUser.totalDocuments}
                     </div>
                   </CardContent>
@@ -1206,10 +1206,10 @@ export default function Admin() {
 
       {/* Status Change Modal */}
       <Dialog open={isStatusModalOpen} onOpenChange={setIsStatusModalOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle>Change Document Status</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">Change Document Status</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               Update the status for {selectedDocument?.name}
             </DialogDescription>
           </DialogHeader>
@@ -1260,10 +1260,10 @@ export default function Admin() {
         open={isUploadSignedModalOpen}
         onOpenChange={setIsUploadSignedModalOpen}
       >
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle>Upload Signed Document</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">Upload Signed Document</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               Upload the signed version of {selectedDocument?.name}
             </DialogDescription>
           </DialogHeader>
@@ -1353,10 +1353,10 @@ export default function Admin() {
 
       {/* Notes Modal */}
       <Dialog open={isNotesModalOpen} onOpenChange={setIsNotesModalOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle>Document Notes</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">Document Notes</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               Notes for {selectedDocument?.name}
             </DialogDescription>
           </DialogHeader>
