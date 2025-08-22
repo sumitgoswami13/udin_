@@ -210,18 +210,6 @@ export default function Upload() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-4">
-              <a
-                href="/privacy"
-                className="text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="/terms"
-                className="text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                Terms of Use
-              </a>
               <Button
                 variant="outline"
                 size="sm"
@@ -255,31 +243,6 @@ export default function Upload() {
             </div>
           </div>
 
-          {/* Mobile Navigation Links */}
-          <div className="md:hidden border-t bg-white/95 backdrop-blur-sm">
-            <div className="py-2 space-x-2 text-center">
-              <a
-                href="/privacy"
-                className="text-sm text-gray-600 hover:text-primary"
-              >
-                Privacy Policy
-              </a>
-              <span className="text-gray-300">|</span>
-              <a
-                href="/terms"
-                className="text-sm text-gray-600 hover:text-primary"
-              >
-                Terms of Use
-              </a>
-              <span className="text-gray-300">|</span>
-              <a
-                href="/cancellation"
-                className="text-sm text-gray-600 hover:text-primary"
-              >
-                Cancellation
-              </a>
-            </div>
-          </div>
         </div>
       </header>
 
