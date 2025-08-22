@@ -548,28 +548,30 @@ export default function Dashboard() {
   return (
     <Layout title="Document Management">
       {/* Header */}
-      <div className="mb-6 lg:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
-            Document Management
-          </h2>
-          <p className="text-gray-600 text-sm lg:text-base">
-            Manage and track your uploaded documents
-          </p>
+      <div className="mb-4 sm:mb-6 lg:mb-8 flex flex-col gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
+          <div>
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">
+              Document Management
+            </h2>
+            <p className="text-gray-600 text-sm sm:text-sm lg:text-base">
+              Manage and track your uploaded documents
+            </p>
+          </div>
+          <Button
+            onClick={handleUploadMore}
+            className="flex items-center gap-2 w-full sm:w-auto"
+            size="sm"
+          >
+            <Plus className="h-4 w-4" />
+            <span className="sm:hidden">Upload Documents</span>
+            <span className="hidden sm:inline">Upload More Documents</span>
+          </Button>
         </div>
-        <Button
-          onClick={handleUploadMore}
-          className="flex items-center gap-2 w-full sm:w-auto"
-          size="sm"
-        >
-          <Plus className="h-4 w-4" />
-          <span className="hidden sm:inline">Upload More Documents</span>
-          <span className="sm:hidden">Upload</span>
-        </Button>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-xs lg:text-sm font-medium text-gray-500">
@@ -617,7 +619,7 @@ export default function Dashboard() {
       </div>
 
       {/* Filters */}
-      <Card className="mb-6">
+      <Card className="mb-4 sm:mb-6">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -633,7 +635,7 @@ export default function Dashboard() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
                 Status
@@ -764,8 +766,10 @@ export default function Dashboard() {
         </CardHeader>
         <CardContent>
           {paginatedDocuments.length > 0 ? (
-            <div className="overflow-x-auto">
-              <Table>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle">
+                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                  <Table className="min-w-full">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Document</TableHead>
@@ -866,7 +870,9 @@ export default function Dashboard() {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+                  </Table>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="text-center py-12">
