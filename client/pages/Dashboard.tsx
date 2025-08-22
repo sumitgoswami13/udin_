@@ -778,43 +778,82 @@ export default function Dashboard() {
                   <Table className="min-w-full">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Document</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Upload Date</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Size</TableHead>
-                    <TableHead className="text-center">
+                    <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Document
+                    </TableHead>
+                    <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Type
+                    </TableHead>
+                    <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Category
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Upload Date
+                    </TableHead>
+                    <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </TableHead>
+                    <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Size
+                    </TableHead>
+                    <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Notes
+                    </TableHead>
+                    <TableHead className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Signed Available
                     </TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead className="text-right px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {paginatedDocuments.map((document) => (
                     <TableRow key={document.id}>
-                      <TableCell>
+                      <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
                         <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-gray-500" />
-                          <span className="font-medium">{document.name}</span>
+                          <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                          <div className="min-w-0">
+                            <div className="font-medium text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
+                              {document.name}
+                            </div>
+                            <div className="text-xs text-gray-500 sm:hidden">
+                              {document.type}
+                            </div>
+                          </div>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
                         <Badge variant="outline">{document.type}</Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4">
                         <Badge variant="secondary" className="text-xs">
                           {document.category
                             .replace(/-/g, " ")
                             .replace(/\b\w/g, (l) => l.toUpperCase())}
                         </Badge>
                       </TableCell>
-                      <TableCell>{document.uploadDate}</TableCell>
-                      <TableCell>{getStatusBadge(document.status)}</TableCell>
-                      <TableCell className="text-gray-500">
+                      <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">
+                        {document.uploadDate}
+                      </TableCell>
+                      <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
+                        {getStatusBadge(document.status)}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4 text-gray-500 text-sm">
                         {document.size}
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
+                        {document.notes ? (
+                          <div className="max-w-xs">
+                            <p className="text-sm text-gray-600 truncate" title={document.notes}>
+                              {document.notes}
+                            </p>
+                          </div>
+                        ) : (
+                          <span className="text-gray-400 text-sm italic">No notes</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 sm:py-4">
                         {document.signedDocumentUrl ? (
                           <Button
                             size="sm"
@@ -823,18 +862,18 @@ export default function Dashboard() {
                             onClick={() => handleDownloadSigned(document)}
                           >
                             <Download className="h-3 w-3 mr-1" />
-                            Download
+                            <span className="hidden lg:inline">Download</span>
                           </Button>
                         ) : (
-                          <span className="text-gray-400 text-sm">
+                          <span className="text-gray-400 text-xs">
                             Not Available
                           </span>
                         )}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right px-3 sm:px-6 py-3 sm:py-4">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="p-1 h-8 w-8">
                               <MoreHorizontal className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
