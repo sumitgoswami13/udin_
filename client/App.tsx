@@ -12,6 +12,8 @@ import AdminLogin from "./pages/AdminLogin";
 import Signup from "./pages/Signup";
 import Payment from "./pages/Payment";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Transactions from "./pages/Transactions";
 import Admin from "./pages/Admin";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -35,6 +37,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/transactions" element={<Transactions />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
