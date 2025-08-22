@@ -128,7 +128,8 @@ export default function Dashboard() {
       canEdit: false,
       canDelete: false,
       userId: "user-001",
-      notes: "Contract reviewed and approved by legal team. Ready for signature.",
+      notes:
+        "Contract reviewed and approved by legal team. Ready for signature.",
     },
     {
       id: "2",
@@ -145,7 +146,8 @@ export default function Dashboard() {
       canEdit: false,
       canDelete: false,
       userId: "user-001",
-      notes: "Financial statements verified and signed. All calculations are accurate.",
+      notes:
+        "Financial statements verified and signed. All calculations are accurate.",
     },
     {
       id: "3",
@@ -158,7 +160,8 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
-      notes: "Under review by business development team. Additional information may be required.",
+      notes:
+        "Under review by business development team. Additional information may be required.",
     },
     {
       id: "4",
@@ -171,7 +174,8 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
-      notes: "Document format not supported. Please upload as PDF or DOCX format.",
+      notes:
+        "Document format not supported. Please upload as PDF or DOCX format.",
     },
     {
       id: "5",
@@ -184,7 +188,8 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
-      notes: "Invoice processed successfully. All details verified and approved.",
+      notes:
+        "Invoice processed successfully. All details verified and approved.",
     },
     // Add more documents for pagination demo
     {
@@ -776,145 +781,160 @@ export default function Dashboard() {
               <div className="inline-block min-w-full align-middle">
                 <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                   <Table className="min-w-full">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Document
-                    </TableHead>
-                    <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Type
-                    </TableHead>
-                    <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Category
-                    </TableHead>
-                    <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Upload Date
-                    </TableHead>
-                    <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </TableHead>
-                    <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Size
-                    </TableHead>
-                    <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Notes
-                    </TableHead>
-                    <TableHead className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Signed Available
-                    </TableHead>
-                    <TableHead className="text-right px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {paginatedDocuments.map((document) => (
-                    <TableRow key={document.id}>
-                      <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                          <div className="min-w-0">
-                            <div className="font-medium text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
-                              {document.name}
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Document
+                        </TableHead>
+                        <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Type
+                        </TableHead>
+                        <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Category
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Upload Date
+                        </TableHead>
+                        <TableHead className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </TableHead>
+                        <TableHead className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Size
+                        </TableHead>
+                        <TableHead className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Notes
+                        </TableHead>
+                        <TableHead className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Signed Available
+                        </TableHead>
+                        <TableHead className="text-right px-3 sm:px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paginatedDocuments.map((document) => (
+                        <TableRow key={document.id}>
+                          <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
+                            <div className="flex items-center gap-2">
+                              <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                              <div className="min-w-0">
+                                <div className="font-medium text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
+                                  {document.name}
+                                </div>
+                                <div className="text-xs text-gray-500 sm:hidden">
+                                  {document.type}
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-xs text-gray-500 sm:hidden">
-                              {document.type}
-                            </div>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
-                        <Badge variant="outline">{document.type}</Badge>
-                      </TableCell>
-                      <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4">
-                        <Badge variant="secondary" className="text-xs">
-                          {document.category
-                            .replace(/-/g, " ")
-                            .replace(/\b\w/g, (l) => l.toUpperCase())}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">
-                        {document.uploadDate}
-                      </TableCell>
-                      <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
-                        {getStatusBadge(document.status)}
-                      </TableCell>
-                      <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4 text-gray-500 text-sm">
-                        {document.size}
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
-                        {document.notes ? (
-                          <div className="max-w-xs">
-                            <p className="text-sm text-gray-600 truncate" title={document.notes}>
-                              {document.notes}
-                            </p>
-                          </div>
-                        ) : (
-                          <span className="text-gray-400 text-sm italic">No notes</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 sm:py-4">
-                        {document.signedDocumentUrl ? (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-green-600 border-green-200 hover:bg-green-50"
-                            onClick={() => handleDownloadSigned(document)}
-                          >
-                            <Download className="h-3 w-3 mr-1" />
-                            <span className="hidden lg:inline">Download</span>
-                          </Button>
-                        ) : (
-                          <span className="text-gray-400 text-xs">
-                            Not Available
-                          </span>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right px-3 sm:px-6 py-3 sm:py-4">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm" className="p-1 h-8 w-8">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem
-                              onClick={() => handleDownload(document)}
-                            >
-                              <Download className="h-4 w-4 mr-2" />
-                              Download Original
-                            </DropdownMenuItem>
-                            {document.signedDocumentUrl && (
-                              <DropdownMenuItem
-                                onClick={() => handleDownloadSigned(document)}
-                                className="text-green-600 font-medium"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download Signed Document
-                              </DropdownMenuItem>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
+                            <Badge variant="outline">{document.type}</Badge>
+                          </TableCell>
+                          <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4">
+                            <Badge variant="secondary" className="text-xs">
+                              {document.category
+                                .replace(/-/g, " ")
+                                .replace(/\b\w/g, (l) => l.toUpperCase())}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">
+                            {document.uploadDate}
+                          </TableCell>
+                          <TableCell className="px-3 sm:px-6 py-3 sm:py-4">
+                            {getStatusBadge(document.status)}
+                          </TableCell>
+                          <TableCell className="hidden lg:table-cell px-3 sm:px-6 py-3 sm:py-4 text-gray-500 text-sm">
+                            {document.size}
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
+                            {document.notes ? (
+                              <div className="max-w-xs">
+                                <p
+                                  className="text-sm text-gray-600 truncate"
+                                  title={document.notes}
+                                >
+                                  {document.notes}
+                                </p>
+                              </div>
+                            ) : (
+                              <span className="text-gray-400 text-sm italic">
+                                No notes
+                              </span>
                             )}
-                            <DropdownMenuItem
-                              onClick={() => handleEdit(document)}
-                              disabled={!document.canEdit}
-                              className={!document.canEdit ? "opacity-50" : ""}
-                            >
-                              <Edit className="h-4 w-4 mr-2" />
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={() => handleDelete(document)}
-                              disabled={!document.canDelete}
-                              className={`${!document.canDelete ? "opacity-50" : "text-red-600"}`}
-                            >
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
+                          </TableCell>
+                          <TableCell className="hidden xl:table-cell text-center px-3 sm:px-6 py-3 sm:py-4">
+                            {document.signedDocumentUrl ? (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-green-600 border-green-200 hover:bg-green-50"
+                                onClick={() => handleDownloadSigned(document)}
+                              >
+                                <Download className="h-3 w-3 mr-1" />
+                                <span className="hidden lg:inline">
+                                  Download
+                                </span>
+                              </Button>
+                            ) : (
+                              <span className="text-gray-400 text-xs">
+                                Not Available
+                              </span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-right px-3 sm:px-6 py-3 sm:py-4">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="p-1 h-8 w-8"
+                                >
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem
+                                  onClick={() => handleDownload(document)}
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  Download Original
+                                </DropdownMenuItem>
+                                {document.signedDocumentUrl && (
+                                  <DropdownMenuItem
+                                    onClick={() =>
+                                      handleDownloadSigned(document)
+                                    }
+                                    className="text-green-600 font-medium"
+                                  >
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Download Signed Document
+                                  </DropdownMenuItem>
+                                )}
+                                <DropdownMenuItem
+                                  onClick={() => handleEdit(document)}
+                                  disabled={!document.canEdit}
+                                  className={
+                                    !document.canEdit ? "opacity-50" : ""
+                                  }
+                                >
+                                  <Edit className="h-4 w-4 mr-2" />
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => handleDelete(document)}
+                                  disabled={!document.canDelete}
+                                  className={`${!document.canDelete ? "opacity-50" : "text-red-600"}`}
+                                >
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  Delete
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
                   </Table>
                 </div>
               </div>

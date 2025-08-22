@@ -115,7 +115,9 @@ export default function Layout({ children, title }: LayoutProps) {
                     }`}
                   >
                     <item.icon className="h-4 w-4 flex-shrink-0" />
-                    <span className="hidden sm:inline truncate">{item.label}</span>
+                    <span className="hidden sm:inline truncate">
+                      {item.label}
+                    </span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

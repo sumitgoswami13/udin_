@@ -794,15 +794,27 @@ export default function Admin() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="px-3 sm:px-6 py-3">User</TableHead>
-                        <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3">Join Date</TableHead>
-                        <TableHead className="text-center px-3 sm:px-6 py-3">Documents</TableHead>
-                        <TableHead className="hidden sm:table-cell text-center px-3 sm:px-6 py-3">Pending</TableHead>
-                        <TableHead className="hidden lg:table-cell text-center px-3 sm:px-6 py-3">Signed</TableHead>
+                        <TableHead className="px-3 sm:px-6 py-3">
+                          User
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell px-3 sm:px-6 py-3">
+                          Join Date
+                        </TableHead>
+                        <TableHead className="text-center px-3 sm:px-6 py-3">
+                          Documents
+                        </TableHead>
+                        <TableHead className="hidden sm:table-cell text-center px-3 sm:px-6 py-3">
+                          Pending
+                        </TableHead>
+                        <TableHead className="hidden lg:table-cell text-center px-3 sm:px-6 py-3">
+                          Signed
+                        </TableHead>
                         <TableHead className="hidden lg:table-cell text-right px-3 sm:px-6 py-3">
                           Total Spent
                         </TableHead>
-                        <TableHead className="hidden xl:table-cell px-3 sm:px-6 py-3">Last Activity</TableHead>
+                        <TableHead className="hidden xl:table-cell px-3 sm:px-6 py-3">
+                          Last Activity
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -818,7 +830,9 @@ export default function Admin() {
                                 <User className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
                               </div>
                               <div className="min-w-0">
-                                <div className="font-medium text-sm sm:text-base truncate">{user.name}</div>
+                                <div className="font-medium text-sm sm:text-base truncate">
+                                  {user.name}
+                                </div>
                                 <div className="text-xs sm:text-sm text-gray-500 truncate">
                                   {user.email}
                                 </div>
@@ -828,18 +842,25 @@ export default function Admin() {
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">{formatDate(user.joinDate)}</TableCell>
+                          <TableCell className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-sm">
+                            {formatDate(user.joinDate)}
+                          </TableCell>
                           <TableCell className="text-center px-3 sm:px-6 py-3 sm:py-4">
                             <Badge variant="outline" className="text-xs">
                               {user.totalDocuments}
                             </Badge>
                             <div className="text-xs text-gray-500 sm:hidden mt-1">
                               {user.pendingDocuments > 0 && (
-                                <span className="text-orange-600">P:{user.pendingDocuments}</span>
+                                <span className="text-orange-600">
+                                  P:{user.pendingDocuments}
+                                </span>
                               )}
-                              {user.pendingDocuments > 0 && user.signedDocuments > 0 && <span> | </span>}
+                              {user.pendingDocuments > 0 &&
+                                user.signedDocuments > 0 && <span> | </span>}
                               {user.signedDocuments > 0 && (
-                                <span className="text-green-600">S:{user.signedDocuments}</span>
+                                <span className="text-green-600">
+                                  S:{user.signedDocuments}
+                                </span>
                               )}
                             </div>
                           </TableCell>
@@ -1208,7 +1229,9 @@ export default function Admin() {
       <Dialog open={isStatusModalOpen} onOpenChange={setIsStatusModalOpen}>
         <DialogContent className="sm:max-w-md mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl">Change Document Status</DialogTitle>
+            <DialogTitle className="text-lg sm:text-xl">
+              Change Document Status
+            </DialogTitle>
             <DialogDescription className="text-sm sm:text-base">
               Update the status for {selectedDocument?.name}
             </DialogDescription>
@@ -1262,7 +1285,9 @@ export default function Admin() {
       >
         <DialogContent className="sm:max-w-lg mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl">Upload Signed Document</DialogTitle>
+            <DialogTitle className="text-lg sm:text-xl">
+              Upload Signed Document
+            </DialogTitle>
             <DialogDescription className="text-sm sm:text-base">
               Upload the signed version of {selectedDocument?.name}
             </DialogDescription>
@@ -1355,7 +1380,9 @@ export default function Admin() {
       <Dialog open={isNotesModalOpen} onOpenChange={setIsNotesModalOpen}>
         <DialogContent className="sm:max-w-md mx-4 max-w-[calc(100vw-2rem)]">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl">Document Notes</DialogTitle>
+            <DialogTitle className="text-lg sm:text-xl">
+              Document Notes
+            </DialogTitle>
             <DialogDescription className="text-sm sm:text-base">
               Notes for {selectedDocument?.name}
             </DialogDescription>
