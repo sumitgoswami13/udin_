@@ -86,6 +86,7 @@ interface Document {
   canEdit: boolean;
   canDelete: boolean;
   userId: string;
+  notes?: string;
 }
 
 interface UploadFile {
@@ -127,6 +128,7 @@ export default function Dashboard() {
       canEdit: false,
       canDelete: false,
       userId: "user-001",
+      notes: "Contract reviewed and approved by legal team. Ready for signature.",
     },
     {
       id: "2",
@@ -143,6 +145,7 @@ export default function Dashboard() {
       canEdit: false,
       canDelete: false,
       userId: "user-001",
+      notes: "Financial statements verified and signed. All calculations are accurate.",
     },
     {
       id: "3",
@@ -155,6 +158,7 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
+      notes: "Under review by business development team. Additional information may be required.",
     },
     {
       id: "4",
@@ -167,6 +171,7 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
+      notes: "Document format not supported. Please upload as PDF or DOCX format.",
     },
     {
       id: "5",
@@ -179,6 +184,7 @@ export default function Dashboard() {
       canEdit: true,
       canDelete: true,
       userId: "user-001",
+      notes: "Invoice processed successfully. All details verified and approved.",
     },
     // Add more documents for pagination demo
     {
