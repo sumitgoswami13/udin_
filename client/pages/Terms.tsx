@@ -134,7 +134,6 @@ export default function Terms() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                     Governing Law & Jurisdiction
@@ -146,7 +145,6 @@ export default function Terms() {
                     </li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">

@@ -37,7 +37,9 @@ export default function Cancellation() {
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
                 <XCircle className="h-8 w-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl">Cancellation & Refund Policy</CardTitle>
+              <CardTitle className="text-3xl">
+                Cancellation & Refund Policy
+              </CardTitle>
               <CardDescription>
                 Last updated: {new Date().toLocaleDateString()}
               </CardDescription>
@@ -49,8 +51,14 @@ export default function Cancellation() {
                     Cancellation Policy
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Cancellations are allowed only before document verification starts</li>
-                    <li>Once verification or signing begins, cancellation is not possible</li>
+                    <li>
+                      Cancellations are allowed only before document
+                      verification starts
+                    </li>
+                    <li>
+                      Once verification or signing begins, cancellation is not
+                      possible
+                    </li>
                   </ul>
                 </section>
 
@@ -59,9 +67,18 @@ export default function Cancellation() {
                     Refund Conditions
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Full refund: If service cannot be provided due to internal/system error</li>
-                    <li>Partial refund: If only part of the service is delivered (case-by-case)</li>
-                    <li>No refund: If user submits wrong/incomplete documents or cancels after processing starts</li>
+                    <li>
+                      Full refund: If service cannot be provided due to
+                      internal/system error
+                    </li>
+                    <li>
+                      Partial refund: If only part of the service is delivered
+                      (case-by-case)
+                    </li>
+                    <li>
+                      No refund: If user submits wrong/incomplete documents or
+                      cancels after processing starts
+                    </li>
                   </ul>
                 </section>
 
@@ -70,8 +87,14 @@ export default function Cancellation() {
                     Refund Process
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Refund requests must be raised via support@udin.in within 7 days of payment</li>
-                    <li>Refunds are processed within 7–10 business days to the original payment method</li>
+                    <li>
+                      Refund requests must be raised via support@udin.in within
+                      7 days of payment
+                    </li>
+                    <li>
+                      Refunds are processed within 7–10 business days to the
+                      original payment method
+                    </li>
                   </ul>
                 </section>
 
@@ -81,7 +104,9 @@ export default function Cancellation() {
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Customized/manual services once initiated</li>
-                    <li>Cases of misuse, fraud, or breach of terms by the user</li>
+                    <li>
+                      Cases of misuse, fraud, or breach of terms by the user
+                    </li>
                   </ul>
                 </section>
 
@@ -91,7 +116,10 @@ export default function Cancellation() {
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Users should first approach customer support</li>
-                    <li>If unresolved, disputes shall be settled under Indian Arbitration Act, 1996</li>
+                    <li>
+                      If unresolved, disputes shall be settled under Indian
+                      Arbitration Act, 1996
+                    </li>
                   </ul>
                 </section>
 

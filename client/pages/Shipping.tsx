@@ -40,7 +40,9 @@ export default function Shipping() {
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
                 <Truck className="h-8 w-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl">Shipping / Delivery Policy</CardTitle>
+              <CardTitle className="text-3xl">
+                Shipping / Delivery Policy
+              </CardTitle>
               <CardDescription>
                 Digital document delivery process
               </CardDescription>
@@ -52,7 +54,9 @@ export default function Shipping() {
                     Overview
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    As udin.in is a digital platform, no physical delivery is involved. All our services are delivered electronically through our secure platform.
+                    As udin.in is a digital platform, no physical delivery is
+                    involved. All our services are delivered electronically
+                    through our secure platform.
                   </p>
                 </section>
 
@@ -61,8 +65,13 @@ export default function Shipping() {
                     Service Delivery
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Uploaded documents are verified and signed digitally</li>
-                    <li>Final signed documents are delivered in PDF format through the user dashboard</li>
+                    <li>
+                      Uploaded documents are verified and signed digitally
+                    </li>
+                    <li>
+                      Final signed documents are delivered in PDF format through
+                      the user dashboard
+                    </li>
                   </ul>
                 </section>
 
@@ -73,7 +82,10 @@ export default function Shipping() {
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Standard documents: 24–72 hours</li>
                     <li>Complex/manual jobs: up to 7 business days</li>
-                    <li>Any delays beyond timelines will be notified to the user via email/SMS</li>
+                    <li>
+                      Any delays beyond timelines will be notified to the user
+                      via email/SMS
+                    </li>
                   </ul>
                 </section>
 
@@ -83,8 +95,14 @@ export default function Shipping() {
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Each job gets a unique work ID</li>
-                    <li>Users can track real-time progress: Uploaded → Verified → Signed → Downloadable</li>
-                    <li>Status notifications are sent by SMS, email, and dashboard alerts</li>
+                    <li>
+                      Users can track real-time progress: Uploaded → Verified →
+                      Signed → Downloadable
+                    </li>
+                    <li>
+                      Status notifications are sent by SMS, email, and dashboard
+                      alerts
+                    </li>
                   </ul>
                 </section>
 
@@ -98,7 +116,10 @@ export default function Shipping() {
                         Download Availability
                       </h3>
                       <p className="text-gray-700 leading-relaxed">
-                        Once your documents are processed and signed, they will be available for download from your user dashboard. Documents remain accessible for a minimum of 12 months from the completion date.
+                        Once your documents are processed and signed, they will
+                        be available for download from your user dashboard.
+                        Documents remain accessible for a minimum of 12 months
+                        from the completion date.
                       </p>
                     </div>
 
@@ -107,9 +128,14 @@ export default function Shipping() {
                         Security Features
                       </h3>
                       <ul className="list-disc list-inside text-gray-700 space-y-1">
-                        <li>All documents are encrypted during storage and transmission</li>
+                        <li>
+                          All documents are encrypted during storage and
+                          transmission
+                        </li>
                         <li>Secure login required to access your documents</li>
-                        <li>Digital signatures are tamper-evident and verifiable</li>
+                        <li>
+                          Digital signatures are tamper-evident and verifiable
+                        </li>
                         <li>Download logs are maintained for audit purposes</li>
                       </ul>
                     </div>
@@ -121,13 +147,16 @@ export default function Shipping() {
                     Delivery Confirmation
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    You will receive delivery confirmation through multiple channels:
+                    You will receive delivery confirmation through multiple
+                    channels:
                   </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Email notification with download instructions</li>
                     <li>SMS alert to your registered mobile number</li>
                     <li>Dashboard notification when you log in</li>
-                    <li>Push notifications if you have our mobile app installed</li>
+                    <li>
+                      Push notifications if you have our mobile app installed
+                    </li>
                   </ul>
                 </section>
 
@@ -143,7 +172,10 @@ export default function Shipping() {
                       <ul className="list-disc list-inside text-gray-700 space-y-1">
                         <li>Modern web browser with JavaScript enabled</li>
                         <li>Stable internet connection</li>
-                        <li>PDF reader software (Adobe Reader, browser PDF viewer, etc.)</li>
+                        <li>
+                          PDF reader software (Adobe Reader, browser PDF viewer,
+                          etc.)
+                        </li>
                         <li>Sufficient storage space on your device</li>
                       </ul>
                     </div>
@@ -170,9 +202,13 @@ export default function Shipping() {
                   </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Check your spam/junk email folder for notifications</li>
-                    <li>Verify your contact information is correct in your profile</li>
+                    <li>
+                      Verify your contact information is correct in your profile
+                    </li>
                     <li>Ensure your internet connection is stable</li>
-                    <li>Try accessing your dashboard from a different browser</li>
+                    <li>
+                      Try accessing your dashboard from a different browser
+                    </li>
                     <li>Contact our support team if issues persist</li>
                   </ul>
                 </section>

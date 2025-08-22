@@ -47,7 +47,6 @@ export default function Privacy() {
             </CardHeader>
             <CardContent className="prose prose-gray max-w-none">
               <div className="space-y-8">
-
                 <section>
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                     Information We Collect
@@ -74,7 +73,6 @@ export default function Privacy() {
                         </li>
                       </ul>
                     </div>
-
                   </div>
                 </section>
 

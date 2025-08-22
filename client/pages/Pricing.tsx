@@ -52,8 +52,9 @@ export default function Pricing() {
                     Overview
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    At udin.in, we ensure complete transparency in pricing. Our pricing model is structured to suit
-                    multiple document types and compliance requirements.
+                    At udin.in, we ensure complete transparency in pricing. Our
+                    pricing model is structured to suit multiple document types
+                    and compliance requirements.
                   </p>
                 </section>
 
@@ -64,7 +65,9 @@ export default function Pricing() {
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>Prices are quoted in Indian Rupees (INR)</li>
                     <li>Applicable GST will be added wherever required</li>
-                    <li>All service charges are listed clearly on the website</li>
+                    <li>
+                      All service charges are listed clearly on the website
+                    </li>
                   </ul>
                 </section>
 
@@ -89,8 +92,14 @@ export default function Pricing() {
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>100% advance payment is required for all services</li>
-                    <li>Payments are processed through Razorpay or other RBI-approved payment gateways</li>
-                    <li>No hidden charges—if any additional charges apply, they are disclosed before checkout</li>
+                    <li>
+                      Payments are processed through Razorpay or other
+                      RBI-approved payment gateways
+                    </li>
+                    <li>
+                      No hidden charges—if any additional charges apply, they
+                      are disclosed before checkout
+                    </li>
                   </ul>
                 </section>
 
@@ -99,7 +108,10 @@ export default function Pricing() {
                     Pricing Revision
                   </h2>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Prices may be revised from time to time without prior notice</li>
+                    <li>
+                      Prices may be revised from time to time without prior
+                      notice
+                    </li>
                     <li>Revised pricing does not affect already-paid jobs</li>
                   </ul>
                 </section>

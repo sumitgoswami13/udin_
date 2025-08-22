@@ -242,7 +242,6 @@ export default function Upload() {
               </Button>
             </div>
           </div>
-
         </div>
       </header>
 
