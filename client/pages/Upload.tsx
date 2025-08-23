@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDocuments } from "@/hooks/useDocuments";
 import { useAuth } from "@/hooks/useAuth";
@@ -38,6 +38,7 @@ import {
   CalculatorIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
+import { FileText, CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DOCUMENT_TYPES, PricingCalculator } from "@shared/pricing";
 
@@ -465,7 +466,7 @@ export default function Upload() {
                           >
                             <TrashIcon className="h-4 w-4" />
                           </Button>
-                        <DocumentTextIcon className="h-4 w-4" />
+                        </div>
                       </div>
                     ))}
                   </div>
