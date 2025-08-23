@@ -47,7 +47,7 @@ export const usePayments = () => {
         }
 
         const options = {
-          key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_key',
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
           amount: orderData.amount,
           currency: orderData.currency,
           name: 'UDIN Services',
@@ -85,10 +85,22 @@ export const usePayments = () => {
             ondismiss: () => {
               reject(new Error('Payment cancelled by user'));
             },
+            escape: false,
+            backdropclose: false,
+          },
+          notes: {
+            user_id: authState.user?.id || '',
+            order_type: 'document_processing',
           },
         };
 
         const razorpay = new window.Razorpay(options);
+        
+        // Add error handling
+        razorpay.on('payment.failed', (response: any) => {
+          reject(new Error(response.error.description || 'Payment failed'));
+        });
+        
         razorpay.open();
       });
     },

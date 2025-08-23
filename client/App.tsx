@@ -10,6 +10,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Skeleton } from "@/components/ui/skeleton";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Upload from "./pages/Upload";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
@@ -52,9 +53,46 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/admin" element={<Admin />} />
+                <Route 
+                  path="/payment" 
+                  element={
+                    <ProtectedRoute>
+                      <Payment />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/transactions" 
+                  element={
+                    <ProtectedRoute>
+                      <Transactions />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin" 
+                  element={
+                    <ProtectedRoute requireAdmin={true}>
+                      <Admin />
+                    </ProtectedRoute>
+                  } 
+                />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/pricing" element={<Pricing />} />

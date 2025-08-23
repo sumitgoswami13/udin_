@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useDocuments } from "@/hooks/useDocuments";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -99,6 +103,20 @@ interface UploadFile {
 }
 
 export default function Dashboard() {
+  const { user } = useAuth();
+  const { 
+    documents, 
+    isLoading, 
+    error, 
+    pagination,
+    filters,
+    fetchDocuments, 
+    removeDocument, 
+    updateFilters,
+    clearDocumentError 
+  } = useDocuments();
+  const { toast } = useToast();
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -249,23 +267,29 @@ export default function Dashboard() {
       status: "completed",
       size: "980 KB",
       category: "legal-documents",
-      canEdit: true,
-      canDelete: true,
-      userId: "user-001",
-    },
-    {
-      id: "12",
-      name: "Tax_Return_2023.pdf",
-      type: "PDF",
-      uploadDate: "2024-01-04",
-      status: "processing",
-      size: "3.8 MB",
-      category: "tax-documents",
-      canEdit: true,
-      canDelete: true,
-      userId: "user-001",
-    },
-  ]);
+  // Fetch documents on component mount
+  useEffect(() => {
+    if (user) {
+      fetchDocuments({
+        page: currentPage,
+        limit: itemsPerPage,
+        status: statusFilter !== 'all' ? statusFilter : undefined,
+        category: categoryFilter !== 'all' ? categoryFilter : undefined,
+      });
+    }
+  }, [user, currentPage, statusFilter, categoryFilter, typeFilter, dateFilter]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearDocumentError();
+    }
+  }, [error, toast, clearDocumentError]);
 
   const filteredDocuments = documents.filter((doc) => {
     const matchesSearch = doc.name
@@ -527,13 +551,34 @@ export default function Dashboard() {
 
   const handleDelete = (document: Document) => {
     if (!document.canDelete) {
-      alert(
-        "This document cannot be deleted because it has been downloaded by admin.",
-      );
+      toast({
+        title: "Cannot Delete",
+        description: "This document cannot be deleted because it has been downloaded by admin.",
+        variant: "destructive",
+      });
       return;
     }
-    if (confirm(`Are you sure you want to delete ${document.name}?`)) {
-      console.log("Deleting:", document.name);
+    
+    if (window.confirm(`Are you sure you want to delete ${document.name}?`)) {
+      handleDeleteDocument(document.id);
+    }
+  };
+
+  const handleDeleteDocument = async (documentId: string) => {
+    try {
+      const result = await removeDocument(documentId);
+      if (result.meta.requestStatus === 'fulfilled') {
+        toast({
+          title: "Document Deleted",
+          description: "Document has been successfully deleted.",
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Delete Failed",
+        description: "Failed to delete document. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -541,7 +586,10 @@ export default function Dashboard() {
     if (document.signedDocumentUrl) {
       console.log("Downloading signed document:", document.signedDocumentUrl);
       // Simulate download
-      alert("Downloading signed document...");
+      toast({
+        title: "Download Started",
+        description: "Your signed document download has started.",
+      });
     }
   };
 
@@ -765,6 +813,14 @@ export default function Dashboard() {
         <CardContent>
           {paginatedDocuments.length > 0 ? (
             <div className="overflow-x-auto">
+              {isLoading && (
+                <div className="text-center py-4">
+                  <div className="inline-flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                    <span className="text-sm text-gray-600">Loading documents...</span>
+                  </div>
+                </div>
+              )}
               <Table>
                 <TableHeader>
                   <TableRow>

@@ -1,4 +1,4 @@
-import apiClient from './authApi';
+import { api, ApiResponse } from '../../utils/api';
 
 export const paymentApi = {
   createOrder: (data: {
@@ -8,18 +8,18 @@ export const paymentApi = {
       tier: string;
       quantity: number;
     }>;
-  }) => apiClient.post('/payments/create-order', data),
+  }): Promise<ApiResponse> => api.post('/payments/create-order', data),
 
   verifyPayment: (data: {
     razorpay_order_id: string;
     razorpay_payment_id: string;
     razorpay_signature: string;
-  }) => apiClient.post('/payments/verify', data),
+  }): Promise<ApiResponse> => api.post('/payments/verify', data),
 
   handlePaymentFailure: (data: {
     orderId: string;
     reason: string;
-  }) => apiClient.post('/payments/failure', data),
+  }): Promise<ApiResponse> => api.post('/payments/failure', data),
 
   getUserTransactions: (filters: {
     type?: string;
@@ -34,12 +34,12 @@ export const paymentApi = {
       }
     });
     
-    return apiClient.get(`/payments/transactions?${params.toString()}`);
+    return api.get(`/payments/transactions?${params.toString()}`);
   },
 
   processRefund: (data: {
     orderId: string;
     amount: number;
     reason: string;
-  }) => apiClient.post('/payments/admin/refund', data),
+  }): Promise<ApiResponse> => api.post('/payments/admin/refund', data),
 };

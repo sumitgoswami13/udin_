@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +18,8 @@ import { UserPlus, ArrowLeft, Mail, Phone, Shield } from "lucide-react";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { register, isLoading, error, clearAuthError } = useAuth();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,6 +29,8 @@ export default function Signup() {
     state: "",
     pin: "",
     agreeToTerms: false,
+    password: "",
+    confirmPassword: "",
   });
 
   const [otpStep, setOtpStep] = useState<"form" | "email" | "phone">("form");
@@ -37,6 +43,7 @@ export default function Signup() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (error) clearAuthError();
   };
 
   const sendEmailOtp = () => {
@@ -86,17 +93,64 @@ export default function Signup() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (formData.password !== formData.confirmPassword) {
+      toast({
+        title: "Password Mismatch",
+        description: "Passwords do not match. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!emailVerified && !phoneVerified) {
-      alert("Please verify either your email or phone number");
+      toast({
+        title: "Verification Required",
+        description: "Please verify either your email or phone number",
+        variant: "destructive",
+      });
       return;
     }
 
     if (!formData.agreeToTerms) {
-      alert("Please agree to the terms and conditions");
+      toast({
+        title: "Terms Required",
+        description: "Please agree to the terms and conditions",
+        variant: "destructive",
+      });
       return;
     }
 
-    navigate("/payment");
+    handleRegistration();
+  };
+
+  const handleRegistration = async () => {
+    try {
+      const registrationData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        state: formData.state,
+        pinCode: formData.pin,
+        password: formData.password,
+      };
+
+      const result = await register(registrationData);
+      if (result.meta.requestStatus === 'fulfilled') {
+        toast({
+          title: "Registration Successful",
+          description: "Account created successfully! Redirecting to payment...",
+        });
+        navigate("/payment");
+      }
+    } catch (err) {
+      toast({
+        title: "Registration Failed",
+        description: error || "Please check your information and try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -268,6 +322,33 @@ export default function Signup() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
+                      <Label htmlFor="password">Password *</Label>
+                      <Input
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        placeholder="••••••••"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword">Confirm Password *</Label>
+                      <Input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        required
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        placeholder="••••••••"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
                       <Label htmlFor="state">State *</Label>
                       <Input
                         id="state"
@@ -334,9 +415,9 @@ export default function Signup() {
                     type="submit"
                     className="w-full"
                     size="lg"
-                    disabled={!emailVerified && !phoneVerified}
+                    disabled={(!emailVerified && !phoneVerified) || isLoading}
                   >
-                    Create Account & Continue to Payment
+                    {isLoading ? "Creating Account..." : "Create Account & Continue to Payment"}
                   </Button>
                 </form>
               )}

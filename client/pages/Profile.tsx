@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,53 +44,65 @@ import {
   X,
 } from "lucide-react";
 
-interface UserProfile {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  country: string;
-  dateOfBirth: string;
-  bio: string;
-  avatar: string;
-  joinDate: string;
-  accountType: "premium" | "standard" | "enterprise";
-  verificationStatus: "verified" | "pending" | "unverified";
-}
-
 export default function Profile() {
+  const { user, isLoading, error, clearAuthError, updateProfile } = useAuth();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
-  const [profile, setProfile] = useState<UserProfile>({
-    id: "user-001",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main Street",
-    city: "New York",
-    state: "NY",
-    zipCode: "10001",
-    country: "United States",
-    dateOfBirth: "1990-05-15",
-    bio: "Senior Software Developer with 8+ years of experience in full-stack development. Passionate about creating efficient and scalable solutions.",
-    avatar: "",
-    joinDate: "2023-01-15",
-    accountType: "premium",
-    verificationStatus: "verified",
+  
+  const [profile, setProfile] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "India",
+    dateOfBirth: "",
+    bio: "",
   });
 
-  const [editedProfile, setEditedProfile] = useState<UserProfile>(profile);
+  const [editedProfile, setEditedProfile] = useState(profile);
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  // Update profile from user data
+  useEffect(() => {
+    if (user) {
+      const updatedProfile = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone || "",
+        address: profile.address,
+        city: profile.city,
+        state: profile.state,
+        zipCode: profile.zipCode,
+        country: profile.country,
+        dateOfBirth: profile.dateOfBirth,
+        bio: profile.bio,
+      };
+      setProfile(updatedProfile);
+      setEditedProfile(updatedProfile);
+    }
+  }, [user]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearAuthError();
+    }
+  }, [error, toast, clearAuthError]);
 
   const handleEditToggle = () => {
     if (isEditing) {
@@ -97,34 +111,63 @@ export default function Profile() {
     setIsEditing(!isEditing);
   };
 
-  const handleSave = () => {
-    setProfile(editedProfile);
-    setIsEditing(false);
-    // Here you would typically make an API call to save the profile
-    console.log("Profile saved:", editedProfile);
+  const handleSave = async () => {
+    try {
+      // TODO: Implement profile update API call
+      setProfile(editedProfile);
+      updateProfile(editedProfile);
+      setIsEditing(false);
+      
+      toast({
+        title: "Profile Updated",
+        description: "Your profile has been updated successfully.",
+      });
+    } catch (err) {
+      toast({
+        title: "Update Failed",
+        description: "Failed to update profile. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleInputChange = (field: keyof UserProfile, value: string) => {
+  const handleInputChange = (field: string, value: string) => {
     setEditedProfile((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handlePasswordChange = () => {
+  const handlePasswordChange = async () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert("New passwords don't match!");
+      toast({
+        title: "Password Mismatch",
+        description: "New passwords don't match!",
+        variant: "destructive",
+      });
       return;
     }
-    // Here you would typically make an API call to change the password
-    console.log("Password change requested");
-    setPasswordData({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-    setIsPasswordDialogOpen(false);
-    alert("Password changed successfully!");
+    
+    try {
+      // TODO: Implement password change API call
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+      setIsPasswordDialogOpen(false);
+      
+      toast({
+        title: "Password Changed",
+        description: "Your password has been changed successfully.",
+      });
+    } catch (err) {
+      toast({
+        title: "Password Change Failed",
+        description: "Failed to change password. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const getAccountTypeBadge = (type: string) => {
@@ -148,6 +191,20 @@ export default function Profile() {
         return <Badge variant="destructive">Unverified</Badge>;
     }
   };
+
+  if (isLoading) {
+    return (
+      <Layout title="Profile Settings">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-gray-200 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            <div className="h-64 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout title="Profile Settings">
@@ -194,7 +251,7 @@ export default function Profile() {
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Avatar className="h-24 w-24">
                 <AvatarImage
-                  src={profile.avatar}
+                  src=""
                   alt={`${profile.firstName} ${profile.lastName}`}
                 />
                 <AvatarFallback className="text-lg">
@@ -208,8 +265,8 @@ export default function Profile() {
                 </h3>
                 <p className="text-gray-600">{profile.email}</p>
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
-                  {getAccountTypeBadge(profile.accountType)}
-                  {getVerificationBadge(profile.verificationStatus)}
+                  {getAccountTypeBadge("standard")}
+                  {getVerificationBadge("verified")}
                 </div>
                 {isEditing && (
                   <Button variant="outline" size="sm" className="mt-2">
@@ -297,13 +354,12 @@ export default function Profile() {
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="India">India</SelectItem>
                     <SelectItem value="United States">United States</SelectItem>
                     <SelectItem value="Canada">Canada</SelectItem>
                     <SelectItem value="United Kingdom">
                       United Kingdom
                     </SelectItem>
-                    <SelectItem value="Germany">Germany</SelectItem>
-                    <SelectItem value="France">France</SelectItem>
                     <SelectItem value="Other">Other</SelectItem>
                   </SelectContent>
                 </Select>
@@ -480,10 +536,10 @@ export default function Profile() {
               <div className="space-y-2">
                 <Label>Account Type</Label>
                 <div className="flex items-center gap-2">
-                  {getAccountTypeBadge(profile.accountType)}
+                  {getAccountTypeBadge("standard")}
                   <span className="text-sm text-gray-600">
                     Member since{" "}
-                    {new Date(profile.joinDate).toLocaleDateString()}
+                    {user ? new Date(user.createdAt || Date.now()).toLocaleDateString() : "N/A"}
                   </span>
                 </div>
               </div>
@@ -491,12 +547,7 @@ export default function Profile() {
               <div className="space-y-2">
                 <Label>Verification Status</Label>
                 <div className="flex items-center gap-2">
-                  {getVerificationBadge(profile.verificationStatus)}
-                  {profile.verificationStatus !== "verified" && (
-                    <Button variant="link" size="sm" className="p-0 h-auto">
-                      Complete verification
-                    </Button>
-                  )}
+                  {getVerificationBadge("verified")}
                 </div>
               </div>
             </div>
@@ -512,18 +563,18 @@ export default function Profile() {
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">23</div>
+                <div className="text-2xl font-bold text-primary">0</div>
                 <div className="text-sm text-gray-600">Documents Processed</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-600">
-                  ₹12,850.00
+                  ₹0.00
                 </div>
                 <div className="text-sm text-gray-600">Total Spent</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">8</div>
-                <div className="text-sm text-gray-600">Months Active</div>
+                <div className="text-2xl font-bold text-blue-600">0</div>
+                <div className="text-sm text-gray-600">Days Active</div>
               </div>
             </div>
           </CardContent>

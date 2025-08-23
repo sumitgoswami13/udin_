@@ -1,5 +1,8 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDocuments } from "@/hooks/useDocuments";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -51,9 +54,24 @@ interface UploadedFile {
 
 export default function Upload() {
   const navigate = useNavigate();
+  const { upload, isUploading, uploadProgress, error, clearDocumentError } = useDocuments();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [showCostPopup, setShowCostPopup] = useState(false);
+
+  // Handle upload errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Upload Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearDocumentError();
+    }
+  }, [error, toast, clearDocumentError]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -84,7 +102,35 @@ export default function Upload() {
 
   const processFiles = (newFiles: File[]) => {
     if (files.length + newFiles.length > 30) {
-      alert("Maximum 30 documents allowed");
+      toast({
+        title: "Upload Limit Exceeded",
+        description: "Maximum 30 documents allowed per upload session.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file types and sizes
+    const invalidFiles = newFiles.filter(file => {
+      const validTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ];
+      const maxSize = 10 * 1024 * 1024; // 10MB
+      
+      return !validTypes.includes(file.type) || file.size > maxSize;
+    });
+
+    if (invalidFiles.length > 0) {
+      toast({
+        title: "Invalid Files",
+        description: "Some files are invalid. Please check file types and sizes (max 10MB).",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -101,24 +147,43 @@ export default function Upload() {
 
     setFiles((prev) => [...prev, ...uploadFiles]);
 
-    // Simulate upload progress
+    // Upload files to server
     uploadFiles.forEach((file) => {
-      const interval = setInterval(() => {
-        setFiles((prev) =>
-          prev.map((f) => {
-            if (f.id === file.id) {
-              const newProgress = f.progress + Math.random() * 30;
-              if (newProgress >= 100) {
-                clearInterval(interval);
-                return { ...f, progress: 100, status: "completed" };
-              }
-              return { ...f, progress: newProgress };
-            }
-            return f;
-          }),
-        );
-      }, 200);
+      uploadFileToServer(file);
     });
+  };
+
+  const uploadFileToServer = async (file: UploadedFile) => {
+    try {
+      // Create File object from UploadedFile
+      const fileBlob = new File([new Blob()], file.name, { type: file.type });
+      
+      const result = await upload({
+        file: fileBlob,
+        documentTypeId: file.documentTypeId,
+        tier: file.tier,
+      });
+
+      if (result.meta.requestStatus === 'fulfilled') {
+        setFiles(prev => prev.map(f => 
+          f.id === file.id 
+            ? { ...f, status: 'completed', progress: 100 }
+            : f
+        ));
+      } else {
+        setFiles(prev => prev.map(f => 
+          f.id === file.id 
+            ? { ...f, status: 'error', progress: 0 }
+            : f
+        ));
+      }
+    } catch (error) {
+      setFiles(prev => prev.map(f => 
+        f.id === file.id 
+          ? { ...f, status: 'error', progress: 0 }
+          : f
+      ));
+    }
   };
 
   const removeFile = (id: string) => {
@@ -185,13 +250,26 @@ export default function Upload() {
 
   const handleContinue = () => {
     if (files.length > 0) {
+      const incompleteFiles = files.filter(f => !f.documentTypeId);
+      if (incompleteFiles.length > 0) {
+        toast({
+          title: "Incomplete Selection",
+          description: "Please select document type for all files.",
+          variant: "destructive",
+        });
+        return;
+      }
       setShowCostPopup(true);
     }
   };
 
   const handleProceedToRegistration = () => {
     setShowCostPopup(false);
-    navigate("/signup");
+    if (user) {
+      navigate("/payment");
+    } else {
+      navigate("/signup");
+    }
   };
 
   return (

@@ -70,14 +70,16 @@ export const uploadDocument = createAsyncThunk(
     file: File;
     documentTypeId: string;
     tier: string;
-  }, { rejectWithValue }) => {
+  }, { rejectWithValue, dispatch }) => {
     try {
       const formData = new FormData();
       formData.append('document', data.file);
       formData.append('documentTypeId', data.documentTypeId);
       formData.append('tier', data.tier);
 
-      const response = await documentApi.uploadDocument(formData);
+      const response = await documentApi.uploadDocument(formData, (progress) => {
+        dispatch(setUploadProgress(progress));
+      });
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Upload failed');

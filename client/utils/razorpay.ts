@@ -1,5 +1,3 @@
-import { usePayments } from '../hooks/usePayments';
-
 export const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
     // Check if Razorpay is already loaded
@@ -20,59 +18,18 @@ export const loadRazorpayScript = (): Promise<boolean> => {
   });
 };
 
-export const initializeRazorpayPayment = async (
-  orderData: {
-    id: string;
-    amount: number;
-    currency: string;
+// Razorpay configuration
+export const RAZORPAY_CONFIG = {
+  key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_key',
+  name: 'UDIN Services',
+  description: 'Professional CA Document Processing',
+  theme: {
+    color: '#6366f1',
   },
-  userDetails: {
-    name: string;
-    email: string;
-    contact: string;
+  retry: {
+    enabled: true,
+    max_count: 3,
   },
-  onSuccess: (response: any) => void,
-  onFailure: (error: any) => void
-) => {
-  try {
-    const isLoaded = await loadRazorpayScript();
-    
-    if (!isLoaded) {
-      throw new Error('Failed to load Razorpay SDK');
-    }
-
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_key',
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: 'UDIN Services',
-      description: 'Professional CA Document Processing',
-      order_id: orderData.id,
-      prefill: {
-        name: userDetails.name,
-        email: userDetails.email,
-        contact: userDetails.contact,
-      },
-      theme: {
-        color: '#6366f1',
-      },
-      handler: onSuccess,
-      modal: {
-        ondismiss: () => {
-          onFailure(new Error('Payment cancelled by user'));
-        },
-      },
-      retry: {
-        enabled: true,
-        max_count: 3,
-      },
-      timeout: 300, // 5 minutes timeout
-      remember_customer: true,
-    };
-
-    const razorpay = new window.Razorpay(options);
-    razorpay.open();
-  } catch (error) {
-    onFailure(error);
-  }
+  timeout: 300, // 5 minutes
+  remember_customer: true,
 };

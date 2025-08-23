@@ -1,4 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import {
   Sidebar,
   SidebarContent,
@@ -26,6 +28,8 @@ interface LayoutProps {
 export default function Layout({ children, title }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
 
   const handleNavigation = (page: string) => {
     switch (page) {
@@ -43,11 +47,20 @@ export default function Layout({ children, title }: LayoutProps) {
         navigate("/transactions");
         break;
       case "logout":
-        navigate("/");
+        handleLogout();
         break;
       default:
         break;
     }
+  };
+
+  const handleLogout = () => {
+    signOut();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+    navigate("/");
   };
 
   // Check if current page is admin

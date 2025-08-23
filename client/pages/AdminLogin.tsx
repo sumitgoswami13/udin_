@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,36 +25,39 @@ import {
 
 export default function AdminLogin() {
   const navigate = useNavigate();
+  const { adminSignIn, isLoading, error, clearAuthError } = useAuth();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (error) setError("");
+    if (error) clearAuthError();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    // Simulate admin login validation
-    setTimeout(() => {
-      setIsLoading(false);
-      if (formData.username === "admin" && formData.password === "admin123") {
+    
+    try {
+      const result = await adminSignIn(formData);
+      if (result.meta.requestStatus === 'fulfilled') {
+        toast({
+          title: "Admin Login Successful",
+          description: "Welcome to admin panel!",
+        });
         navigate("/admin");
-      } else {
-        setError(
-          "Invalid credentials. Please check your username and password.",
-        );
       }
-    }, 2000);
+    } catch (err) {
+      toast({
+        title: "Admin Login Failed",
+        description: error || "Invalid credentials. Please check your username and password.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

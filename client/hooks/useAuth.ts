@@ -7,7 +7,8 @@ import {
   adminLogin, 
   logout, 
   clearError,
-  refreshAccessToken 
+  refreshAccessToken,
+  updateUser
 } from '../store/slices/authSlice';
 
 export const useAuth = () => {
@@ -56,6 +57,12 @@ export const useAuth = () => {
     return dispatch(refreshAccessToken());
   }, [dispatch]);
 
+  const updateProfile = useCallback(
+    (profileData: any) => {
+      dispatch(updateUser(profileData));
+    },
+    [dispatch]
+  );
   return {
     ...authState,
     login,
@@ -64,5 +71,6 @@ export const useAuth = () => {
     signOut,
     clearAuthError,
     refreshToken,
+    updateProfile,
   };
 };

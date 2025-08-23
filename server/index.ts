@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
+import { corsMiddleware } from "./middleware/cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { connectDatabase } from "./config/database";
@@ -41,7 +41,7 @@ export function createServer() {
   app.use(generalLimiter);
 
   // Middleware
-  app.use(cors());
+  app.use(corsMiddleware);
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 

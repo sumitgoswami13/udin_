@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useEffect } from "react";
+import { usePayments } from "@/hooks/usePayments";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,6 +75,17 @@ interface Transaction {
 }
 
 export default function Transactions() {
+  const { user } = useAuth();
+  const { 
+    transactions, 
+    isLoading, 
+    error, 
+    pagination,
+    fetchUserTransactions,
+    clearPaymentError 
+  } = usePayments();
+  const { toast } = useToast();
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -79,82 +94,29 @@ export default function Transactions() {
     useState<Transaction | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  const [transactions] = useState<Transaction[]>([
-    {
-      id: "txn_001",
-      date: "2024-01-15T10:30:00Z",
-      description: "Document Processing - Contract Analysis",
-      amount: 2950.0,
-      status: "completed",
-      type: "document_processing",
-      paymentMethod: "credit_card",
-      invoiceId: "INV-2024-001",
-      documents: ["Contract_Agreement.pdf", "Terms_Conditions.pdf"],
-    },
-    {
-      id: "txn_002",
-      date: "2024-01-14T15:45:00Z",
-      description: "Premium Subscription - Monthly",
-      amount: 1770.0,
-      status: "completed",
-      type: "subscription",
-      paymentMethod: "credit_card",
-      invoiceId: "INV-2024-002",
-    },
-    {
-      id: "txn_003",
-      date: "2024-01-12T09:15:00Z",
-      description: "Document Processing - Financial Statement",
-      amount: 15.0,
-      status: "completed",
-      type: "document_processing",
-      paymentMethod: "paypal",
-      invoiceId: "INV-2024-003",
-      documents: ["Financial_Statement.docx"],
-    },
-    {
-      id: "txn_004",
-      date: "2024-01-10T14:20:00Z",
-      description: "Refund - Processing Error",
-      amount: -10.0,
-      status: "completed",
-      type: "refund",
-      paymentMethod: "credit_card",
-      invoiceId: "REF-2024-001",
-    },
-    {
-      id: "txn_005",
-      date: "2024-01-08T11:30:00Z",
-      description: "Document Processing - Legal Review",
-      amount: 35.0,
-      status: "pending",
-      type: "document_processing",
-      paymentMethod: "bank_transfer",
-      invoiceId: "INV-2024-004",
-      documents: ["Legal_Document.pdf", "Contract_v2.pdf"],
-    },
-    {
-      id: "txn_006",
-      date: "2024-01-05T16:45:00Z",
-      description: "Account Credit Bonus",
-      amount: 5.0,
-      status: "completed",
-      type: "credit",
-      paymentMethod: "credit_card",
-      invoiceId: "CRD-2024-001",
-    },
-    {
-      id: "txn_007",
-      date: "2024-01-03T13:20:00Z",
-      description: "Document Processing - Invoice Analysis",
-      amount: 20.0,
-      status: "failed",
-      type: "document_processing",
-      paymentMethod: "credit_card",
-      invoiceId: "INV-2024-005",
-      documents: ["Invoice_2024.pdf"],
-    },
-  ]);
+  // Fetch transactions on component mount
+  useEffect(() => {
+    if (user) {
+      fetchUserTransactions({
+        page: 1,
+        limit: 20,
+        type: typeFilter !== 'all' ? typeFilter : undefined,
+        status: statusFilter !== 'all' ? statusFilter : undefined,
+      });
+    }
+  }, [user, statusFilter, typeFilter, dateFilter]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearPaymentError();
+    }
+  }, [error, toast, clearPaymentError]);
 
   const filteredTransactions = transactions.filter((txn) => {
     const matchesSearch =
@@ -506,6 +468,15 @@ export default function Transactions() {
             </div>
           </CardHeader>
           <CardContent>
+            {isLoading && (
+              <div className="text-center py-4">
+                <div className="inline-flex items-center gap-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                  <span className="text-sm text-gray-600">Loading transactions...</span>
+                </div>
+              </div>
+            )}
+            
             {filteredTransactions.length > 0 ? (
               <div className="overflow-x-auto">
                 <Table>

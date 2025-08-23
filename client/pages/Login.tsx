@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,12 +24,13 @@ import { Mail, Lock, ArrowLeft, Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login, isLoading, error, clearAuthError } = useAuth();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotPasswordSent, setForgotPasswordSent] = useState(false);
@@ -35,17 +38,28 @@ export default function Login() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (error) clearAuthError();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate login
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/dashboard");
-    }, 2000);
+    
+    try {
+      const result = await login(formData);
+      if (result.meta.requestStatus === 'fulfilled') {
+        toast({
+          title: "Login Successful",
+          description: "Welcome back! Redirecting to dashboard...",
+        });
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      toast({
+        title: "Login Failed",
+        description: error || "Please check your credentials and try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -112,6 +126,12 @@ export default function Login() {
               </div>
             </CardHeader>
             <CardContent className="space-y-6">
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                  <p className="text-red-800 text-sm">{error}</p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>

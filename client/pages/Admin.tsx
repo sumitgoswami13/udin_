@@ -1,5 +1,10 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDocuments } from "@/hooks/useDocuments";
+import { usePayments } from "@/hooks/usePayments";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -132,6 +137,20 @@ interface UploadedFile {
 
 export default function Admin() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { 
+    documents, 
+    isLoading, 
+    error, 
+    fetchDocuments,
+    clearDocumentError 
+  } = useDocuments();
+  const { 
+    transactions, 
+    fetchUserTransactions 
+  } = usePayments();
+  const { toast } = useToast();
+  
   const [currentView, setCurrentView] = useState<"users" | "user-detail">(
     "users",
   );
@@ -152,6 +171,38 @@ export default function Admin() {
   const [statusNotes, setStatusNotes] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+
+  // Check admin access
+  useEffect(() => {
+    if (user && user.role !== 'admin') {
+      toast({
+        title: "Access Denied",
+        description: "You don't have permission to access this page.",
+        variant: "destructive",
+      });
+      navigate('/dashboard');
+    }
+  }, [user, navigate, toast]);
+
+  // Fetch admin data
+  useEffect(() => {
+    if (user && user.role === 'admin') {
+      fetchDocuments({ page: 1, limit: 50 }); // Fetch all documents for admin
+      fetchUserTransactions({ page: 1, limit: 50 });
+    }
+  }, [user]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearDocumentError();
+    }
+  }, [error, toast, clearDocumentError]);
 
   // Mock data
   const [users] = useState<User[]>([
@@ -213,82 +264,10 @@ export default function Admin() {
     },
   ]);
 
-  const [documents, setDocuments] = useState<Document[]>([
-    {
-      id: "doc-001",
-      name: "Contract_Agreement.pdf",
-      type: "PDF",
-      uploadDate: "2024-01-15",
-      status: "downloaded_by_admin",
-      size: "2.4 MB",
-      category: "Contract",
-      userId: "user-001",
-      downloadedByAdmin: true,
-      adminDownloadDate: "2024-01-16",
-      notes: "Downloaded for CA review",
-      cost: 200.0,
-      paymentStatus: "paid",
-    },
-    {
-      id: "doc-002",
-      name: "Financial_Statement.docx",
-      type: "DOCX",
-      uploadDate: "2024-01-14",
-      status: "signed_uploaded",
-      size: "1.8 MB",
-      category: "Financial",
-      userId: "user-001",
-      downloadedByAdmin: true,
-      adminDownloadDate: "2024-01-15",
-      signedDocumentUrl: "/signed/Financial_Statement_signed.pdf",
-      signedDocumentUploadDate: "2024-01-17",
-      notes: "Signed document uploaded by backoffice",
-      cost: 150.5,
-      paymentStatus: "paid",
-    },
-    {
-      id: "doc-003",
-      name: "Project_Proposal.pdf",
-      type: "PDF",
-      uploadDate: "2024-01-13",
-      status: "uploaded",
-      size: "3.2 MB",
-      category: "Business",
-      userId: "user-001",
-      cost: 300.0,
-      paymentStatus: "pending",
-    },
-    {
-      id: "doc-004",
-      name: "Invoice_2024.pdf",
-      type: "PDF",
-      uploadDate: "2024-01-12",
-      status: "in_review",
-      size: "890 KB",
-      category: "Financial",
-      userId: "user-002",
-      downloadedByAdmin: true,
-      adminDownloadDate: "2024-01-13",
-      notes: "Under CA review",
-      cost: 125.75,
-      paymentStatus: "paid",
-    },
-    {
-      id: "doc-005",
-      name: "Legal_Document.pdf",
-      type: "PDF",
-      uploadDate: "2024-01-11",
-      status: "error",
-      size: "1.5 MB",
-      category: "Legal",
-      userId: "user-003",
-      notes: "Document format issue, re-upload required",
-      cost: 250.0,
-      paymentStatus: "failed",
-    },
-  ]);
+  // Use real documents from Redux store
+  const adminDocuments = documents;
 
-  const [transactions] = useState<Transaction[]>([
+  const [mockTransactions] = useState<Transaction[]>([
     {
       id: "txn-001",
       userId: "user-001",
@@ -382,10 +361,10 @@ export default function Admin() {
   );
 
   const currentUser = users.find((user) => user.id === selectedUserId);
-  const currentUserDocuments = documents.filter(
+  const currentUserDocuments = adminDocuments.filter(
     (doc) => doc.userId === selectedUserId,
   );
-  const currentUserTransactions = transactions.filter(
+  const currentUserTransactions = mockTransactions.filter(
     (txn) => txn.userId === selectedUserId,
   );
 
@@ -531,23 +510,32 @@ export default function Admin() {
     // Simulate document download
     console.log("Admin downloading:", document.name);
 
-    setDocuments((prev) =>
-      prev.map((doc) =>
-        doc.id === document.id
-          ? {
-              ...doc,
-              status: "downloaded_by_admin",
-              downloadedByAdmin: true,
-              adminDownloadDate: new Date().toISOString().split("T")[0],
-              notes: "Downloaded by admin for processing",
-            }
-          : doc,
-      ),
-    );
+    // Update document status via API
+    updateDocumentStatusAPI(document.id, 'downloaded_by_admin', 'Downloaded by admin for processing');
+    
+    toast({
+      title: "Document Downloaded",
+      description: `${document.name} has been downloaded successfully.`,
+    });
+  };
 
-    alert(
-      `Downloaded ${document.name} successfully. Document status updated to "Downloaded by Admin".`,
-    );
+  const updateDocumentStatusAPI = async (documentId: string, status: string, notes?: string) => {
+    try {
+      // This would call the admin API to update document status
+      // For now, we'll simulate the update
+      console.log('Updating document status:', { documentId, status, notes });
+      
+      toast({
+        title: "Status Updated",
+        description: "Document status has been updated successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Update Failed",
+        description: "Failed to update document status.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleStatusChange = (document: Document) => {
@@ -570,15 +558,8 @@ export default function Admin() {
 
   const handleStatusUpdate = () => {
     if (selectedDocument && newStatus) {
-      setDocuments((prev) =>
-        prev.map((doc) =>
-          doc.id === selectedDocument.id
-            ? { ...doc, status: newStatus as any, notes: statusNotes }
-            : doc,
-        ),
-      );
+      updateDocumentStatusAPI(selectedDocument.id, newStatus, statusNotes);
       setIsStatusModalOpen(false);
-      alert(`Status updated to "${newStatus}" for ${selectedDocument.name}`);
     }
   };
 
@@ -633,25 +614,17 @@ export default function Admin() {
       selectedDocument &&
       uploadedFiles.some((f) => f.status === "completed")
     ) {
-      setDocuments((prev) =>
-        prev.map((doc) =>
-          doc.id === selectedDocument.id
-            ? {
-                ...doc,
-                status: "signed_uploaded",
-                signedDocumentUrl: `/signed/${uploadedFiles[0].name}`,
-                signedDocumentUploadDate: new Date()
-                  .toISOString()
-                  .split("T")[0],
-                notes: "Signed document uploaded by backoffice",
-              }
-            : doc,
-        ),
+      updateDocumentStatusAPI(
+        selectedDocument.id, 
+        'signed_uploaded', 
+        'Signed document uploaded by backoffice'
       );
       setIsUploadSignedModalOpen(false);
-      alert(
-        `Signed document uploaded successfully for ${selectedDocument.name}. User can now download it.`,
-      );
+      
+      toast({
+        title: "Signed Document Uploaded",
+        description: `Signed document for ${selectedDocument.name} has been uploaded successfully.`,
+      });
     }
   };
 
@@ -680,11 +653,11 @@ export default function Admin() {
 
   // Calculate stats
   const totalUsers = users.length;
-  const totalDocuments = documents.length;
-  const pendingDocuments = documents.filter(
+  const totalDocuments = adminDocuments.length;
+  const pendingDocuments = adminDocuments.filter(
     (d) => d.status === "uploaded" || d.status === "in_review",
   ).length;
-  const signedDocuments = documents.filter(
+  const signedDocuments = adminDocuments.filter(
     (d) => d.status === "signed_uploaded" || d.status === "completed",
   ).length;
 

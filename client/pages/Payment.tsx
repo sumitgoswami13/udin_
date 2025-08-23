@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { usePayments } from "@/hooks/usePayments";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
+import { loadRazorpayScript } from "@/utils/razorpay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,13 +34,34 @@ interface PaymentDetails {
 
 export default function Payment() {
   const navigate = useNavigate();
+  const { 
+    createPaymentOrder, 
+    initiateRazorpayPayment, 
+    currentOrder, 
+    isLoading, 
+    isProcessing, 
+    error,
+    clearPaymentError 
+  } = usePayments();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [searchParams] = useSearchParams();
-  const [processing, setProcessing] = useState(false);
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(
     null,
   );
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const [error, setError] = useState<string>("");
+
+  // Handle payment errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Payment Error",
+        description: error,
+        variant: "destructive",
+      });
+      clearPaymentError();
+    }
+  }, [error, toast, clearPaymentError]);
 
   useEffect(() => {
     // Get payment details from URL params or navigation state
@@ -70,23 +95,54 @@ export default function Payment() {
   );
 
   const handlePayNow = async () => {
-    setProcessing(true);
-    setError("");
 
     try {
-      // Simulate Razorpay payment processing
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      if (!paymentDetails || !user) {
+        throw new Error('Missing payment details or user information');
+      }
 
-      setProcessing(false);
-      setShowSuccessDialog(true);
+      // Load Razorpay script
+      const isRazorpayLoaded = await loadRazorpayScript();
+      if (!isRazorpayLoaded) {
+        throw new Error('Failed to load Razorpay. Please refresh and try again.');
+      }
+
+      // Create order
+      const orderItems = [{
+        documentId: 'temp-' + Date.now(), // Temporary ID for new uploads
+        documentTypeId: paymentDetails.documentTypeId,
+        tier: paymentDetails.tier,
+        quantity: paymentDetails.quantity,
+      }];
+
+      const orderResult = await createPaymentOrder(orderItems);
+      
+      if (orderResult.meta.requestStatus === 'fulfilled') {
+        const { order, razorpayOrder } = orderResult.payload;
+        
+        // Initiate Razorpay payment
+        await initiateRazorpayPayment(razorpayOrder);
+        
+        // Payment successful
+        setShowSuccessDialog(true);
+        
+        toast({
+          title: "Payment Successful",
+          description: "Your payment has been processed successfully!",
+        });
+
 
       // Auto-redirect after success
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);
+      
     } catch (err) {
-      setProcessing(false);
-      setError("Payment failed. Please try again.");
+      toast({
+        title: "Payment Failed",
+        description: err instanceof Error ? err.message : "Payment failed. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -283,11 +339,11 @@ export default function Payment() {
               {/* Pay Now Button */}
               <Button
                 onClick={handlePayNow}
-                disabled={processing}
+                disabled={isProcessing || isLoading}
                 className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold py-6 text-lg"
                 size="lg"
               >
-                {processing ? (
+                {isProcessing || isLoading ? (
                   <>
                     <Loader2 className="h-5 w-5 mr-3 animate-spin" />
                     Processing Payment...
