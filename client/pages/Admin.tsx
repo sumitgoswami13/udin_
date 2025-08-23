@@ -74,7 +74,6 @@ import {
   ReceiptPercentIcon as ReceiptIcon,
   EllipsisHorizontalIcon as MoreHorizontalIcon,
 } from "@heroicons/react/24/outline";
-
 interface User {
   id: string;
   name: string;
