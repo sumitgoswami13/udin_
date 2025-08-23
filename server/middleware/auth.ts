@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { pool } from '../config/database';
+import { User } from '../models/User';
 
 export interface AuthenticatedRequest extends Request {
   user?: {
     id: string;
     email: string;
     role: 'user' | 'admin';
+    firstName: string;
+    lastName: string;
   };
 }
 
@@ -26,13 +28,12 @@ export const authenticateToken = async (
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-jwt-secret') as any;
     
-    // Verify user exists in database
-    const userQuery = 'SELECT id, email, role FROM users WHERE id = $1 AND active = true';
-    const userResult = await pool.query(userQuery, [decoded.userId]);
+    // Verify user exists and is active
+    const user = await User.findById(decoded.userId);
     
-    if (userResult.rows.length === 0) {
+    if (!user || !user.isActive) {
       return res.status(401).json({ 
         success: false, 
         message: 'Invalid token or user not found' 
@@ -40,9 +41,11 @@ export const authenticateToken = async (
     }
 
     req.user = {
-      id: userResult.rows[0].id,
-      email: userResult.rows[0].email,
-      role: userResult.rows[0].role,
+      id: user._id,
+      email: user.email,
+      role: user.role,
+      firstName: user.firstName,
+      lastName: user.lastName,
     };
 
     next();
@@ -67,4 +70,35 @@ export const requireAdmin = (
     });
   }
   next();
+};
+
+export const optionalAuth = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-jwt-secret') as any;
+      const user = await User.findById(decoded.userId);
+      
+      if (user && user.isActive) {
+        req.user = {
+          id: user._id,
+          email: user.email,
+          role: user.role,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        };
+      }
+    }
+
+    next();
+  } catch (error) {
+    // Continue without authentication for optional auth
+    next();
+  }
 };

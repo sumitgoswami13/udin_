@@ -1,38 +1,57 @@
-import { Pool } from 'pg';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Database configuration
-const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'udin_db',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'password',
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-};
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/udin_db';
 
-export const pool = new Pool(dbConfig);
-
-// Test database connection
-export const testConnection = async () => {
+export const connectDatabase = async (): Promise<void> => {
   try {
-    const client = await pool.connect();
-    console.log('✅ Database connected successfully');
-    client.release();
+    const conn = await mongoose.connect(MONGODB_URI, {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    
+    // Handle connection events
+    mongoose.connection.on('error', (err) => {
+      console.error('❌ MongoDB connection error:', err);
+    });
+
+    mongoose.connection.on('disconnected', () => {
+      console.log('🔌 MongoDB disconnected');
+    });
+
+    mongoose.connection.on('reconnected', () => {
+      console.log('🔄 MongoDB reconnected');
+    });
+
   } catch (error) {
     console.error('❌ Database connection failed:', error);
-    throw error;
+    process.exit(1);
+  }
+};
+
+export const disconnectDatabase = async (): Promise<void> => {
+  try {
+    await mongoose.connection.close();
+    console.log('🔄 Database connection closed');
+  } catch (error) {
+    console.error('❌ Error closing database connection:', error);
   }
 };
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
   console.log('🔄 Closing database connections...');
-  await pool.end();
+  await disconnectDatabase();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('🔄 Closing database connections...');
+  await disconnectDatabase();
   process.exit(0);
 });
