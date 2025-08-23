@@ -51,29 +51,29 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Layout from "@/components/Layout";
 import {
-  Users,
-  FileText,
-  Download,
-  Upload,
-  Search,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  DollarSign,
-  Shield,
-  ArrowLeft,
-  User,
-  Settings,
-  Eye,
-  Edit3,
-  Trash2,
-  Plus,
-  CreditCard,
-  TrendingUp,
-  Calendar,
-  Receipt,
-  MoreHorizontal,
-} from "lucide-react";
+  UsersIcon,
+  DocumentTextIcon as FileTextIcon,
+  ArrowDownTrayIcon as DownloadIcon,
+  ArrowUpTrayIcon as UploadIcon,
+  MagnifyingGlassIcon as SearchIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  ExclamationTriangleIcon as AlertCircleIcon,
+  CurrencyDollarIcon as DollarSignIcon,
+  ShieldCheckIcon as ShieldIcon,
+  ArrowLeftIcon,
+  UserIcon,
+  CogIcon as SettingsIcon,
+  EyeIcon,
+  PencilIcon as Edit3Icon,
+  TrashIcon as Trash2Icon,
+  PlusIcon,
+  CreditCardIcon,
+  TrendingUpIcon,
+  CalendarIcon,
+  ReceiptPercentIcon as ReceiptIcon,
+  EllipsisHorizontalIcon as MoreHorizontalIcon,
+} from "@heroicons/react/24/outline";
 
 interface User {
   id: string;
@@ -684,7 +684,7 @@ export default function Admin() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs lg:text-sm font-medium text-gray-500 flex items-center gap-2">
-                    <Users className="h-4 w-4" />
+                    <UsersIcon className="h-4 w-4" />
                     Total Users
                   </CardTitle>
                 </CardHeader>
@@ -697,7 +697,7 @@ export default function Admin() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs lg:text-sm font-medium text-gray-500 flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
+                    <FileTextIcon className="h-4 w-4" />
                     Total Documents
                   </CardTitle>
                 </CardHeader>
@@ -710,7 +710,7 @@ export default function Admin() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs lg:text-sm font-medium text-gray-500 flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
+                    <ClockIcon className="h-4 w-4" />
                     Pending Review
                   </CardTitle>
                 </CardHeader>
@@ -723,7 +723,7 @@ export default function Admin() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs lg:text-sm font-medium text-gray-500 flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" />
+                    <CheckCircleIcon className="h-4 w-4" />
                     Signed Documents
                   </CardTitle>
                 </CardHeader>
@@ -752,7 +752,7 @@ export default function Admin() {
                     </CardDescription>
                   </div>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
                       placeholder="Search users..."
                       value={searchTerm}
@@ -788,7 +788,7 @@ export default function Admin() {
                           <TableCell>
                             <div className="flex items-center gap-3">
                               <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                                <User className="h-4 w-4 text-gray-600" />
+                                <UserIcon className="h-4 w-4 text-gray-600" />
                               </div>
                               <div>
                                 <div className="font-medium">{user.name}</div>
@@ -848,7 +848,7 @@ export default function Admin() {
             {/* User Header */}
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={handleBackToUsers}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
+                <ArrowLeftIcon className="h-4 w-4 mr-2" />
                 Back to Users
               </Button>
               <div>
@@ -915,7 +915,7 @@ export default function Admin() {
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xs lg:text-sm font-medium text-gray-500 flex items-center gap-1">
-                      <DollarSign className="h-3 w-3" />
+                      <DollarSignIcon className="h-3 w-3" />
                       Total Spent
                     </CardTitle>
                   </CardHeader>
@@ -991,7 +991,7 @@ export default function Admin() {
                             <TableRow key={document.id}>
                               <TableCell>
                                 <div className="flex items-center gap-2">
-                                  <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                                  <FileTextIcon className="h-4 w-4 text-gray-500 flex-shrink-0" />
                                   <div className="min-w-0">
                                     <div className="font-medium truncate">
                                       {document.name}
@@ -1032,7 +1032,7 @@ export default function Admin() {
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="sm">
-                                      <MoreHorizontal className="h-4 w-4" />
+                                      <MoreHorizontalIcon className="h-4 w-4" />
                                     </Button>
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end">
@@ -1042,7 +1042,7 @@ export default function Admin() {
                                           handleDownloadDocument(document)
                                         }
                                       >
-                                        <Download className="h-4 w-4 mr-2" />
+                                        <DownloadIcon className="h-4 w-4 mr-2" />
                                         Download
                                       </DropdownMenuItem>
                                     )}
@@ -1054,7 +1054,7 @@ export default function Admin() {
                                           handleUploadSigned(document)
                                         }
                                       >
-                                        <Upload className="h-4 w-4 mr-2" />
+                                        <UploadIcon className="h-4 w-4 mr-2" />
                                         Upload Signed
                                       </DropdownMenuItem>
                                     )}
@@ -1063,7 +1063,7 @@ export default function Admin() {
                                         handleStatusChange(document)
                                       }
                                     >
-                                      <Edit3 className="h-4 w-4 mr-2" />
+                                      <Edit3Icon className="h-4 w-4 mr-2" />
                                       Change Status
                                     </DropdownMenuItem>
                                     {document.notes && (
@@ -1072,7 +1072,7 @@ export default function Admin() {
                                           handleViewNotes(document)
                                         }
                                       >
-                                        <Eye className="h-4 w-4 mr-2" />
+                                        <EyeIcon className="h-4 w-4 mr-2" />
                                         View Notes
                                       </DropdownMenuItem>
                                     )}
@@ -1245,7 +1245,7 @@ export default function Admin() {
               }}
               onDrop={handleDrop}
             >
-              <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+              <UploadIcon className="mx-auto h-8 w-8 text-gray-400 mb-2" />
               <p className="text-sm font-medium mb-1">
                 Drag and drop your signed document here
               </p>
@@ -1273,7 +1273,7 @@ export default function Admin() {
                     key={file.id}
                     className="flex items-center gap-3 p-3 border rounded-lg"
                   >
-                    <FileText className="h-4 w-4 text-gray-500" />
+                    <FileTextIcon className="h-4 w-4 text-gray-500" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">
                         {file.name}
@@ -1287,7 +1287,7 @@ export default function Admin() {
                     </div>
                     <div className="flex items-center gap-1">
                       {file.status === "completed" && (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <CheckCircleIcon className="h-4 w-4 text-green-500" />
                       )}
                     </div>
                   </div>
