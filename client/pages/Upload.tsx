@@ -38,7 +38,7 @@ import {
   CalculatorIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
-import { FileText, CheckCircle2, AlertCircle } from "lucide-react";
+import { DocumentTextIcon as FileTextIcon, CheckCircleIcon as CheckCircle2Icon, ExclamationTriangleIcon as AlertCircleIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { DOCUMENT_TYPES, PricingCalculator } from "@shared/pricing";
 
@@ -208,15 +208,15 @@ export default function Upload() {
   };
 
   const getFileIcon = (type: string) => {
-    return <FileText className="h-4 w-4" />;
+    return <FileTextIcon className="h-4 w-4" />;
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "completed":
-        return <CheckCircle2 className="h-4 w-4 text-green-500" />;
+        return <CheckCircle2Icon className="h-4 w-4 text-green-500" />;
       case "error":
-        return <AlertCircle className="h-4 w-4 text-red-500" />;
+        return <AlertCircleIcon className="h-4 w-4 text-red-500" />;
       default:
         return null;
     }
