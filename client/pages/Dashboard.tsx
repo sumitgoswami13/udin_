@@ -267,6 +267,12 @@ export default function Dashboard() {
       status: "completed",
       size: "980 KB",
       category: "legal-documents",
+      canEdit: true,
+      canDelete: true,
+      userId: "user-001",
+    },
+  ]);
+
   // Fetch documents on component mount
   useEffect(() => {
     if (user) {
