@@ -136,6 +136,7 @@ export default function Payment() {
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);
+      }
       
     } catch (err) {
       toast({
