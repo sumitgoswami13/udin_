@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft, FileText, XCircle } from "lucide-react";
+import { ArrowLeftIcon, DocumentTextIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Cancellation() {
   const navigate = useNavigate();
@@ -19,11 +19,11 @@ export default function Cancellation() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <FileText className="h-8 w-8 text-primary" />
+              <DocumentTextIcon className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-gray-900">UDIN</span>
             </div>
             <Button variant="ghost" onClick={() => navigate(-1)}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back
             </Button>
           </div>
@@ -35,7 +35,7 @@ export default function Cancellation() {
           <Card>
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
-                <XCircle className="h-8 w-8 text-primary" />
+                <XCircleIcon className="h-8 w-8 text-primary" />
               </div>
               <CardTitle className="text-3xl">
                 Cancellation & Refund Policy

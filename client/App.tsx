@@ -17,6 +17,8 @@ import AdminLogin from "./pages/AdminLogin";
 import Signup from "./pages/Signup";
 import Payment from "./pages/Payment";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Transactions from "./pages/Transactions";
 import Admin from "./pages/Admin";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";

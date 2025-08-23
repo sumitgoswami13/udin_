@@ -14,7 +14,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { UserPlus, ArrowLeft, Mail, Phone, Shield } from "lucide-react";
+import { 
+  UserPlusIcon, 
+  ArrowLeftIcon, 
+  EnvelopeIcon, 
+  PhoneIcon, 
+  ShieldCheckIcon 
+} from "@heroicons/react/24/outline";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -165,7 +171,7 @@ export default function Signup() {
               onClick={() => navigate("/")}
               className="text-gray-600 hover:text-gray-900"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
             <div className="hidden sm:block w-px h-6 bg-gray-300" />
@@ -199,7 +205,7 @@ export default function Signup() {
           <Card>
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
-                <UserPlus className="h-8 w-8 text-primary" />
+                <UserPlusIcon className="h-8 w-8 text-primary" />
               </div>
               <CardTitle className="text-2xl">Create Your Account</CardTitle>
               <CardDescription>
@@ -259,12 +265,12 @@ export default function Signup() {
                       >
                         {emailVerified ? (
                           <>
-                            <Shield className="h-4 w-4 mr-1" />
+                            <ShieldCheckIcon className="h-4 w-4 mr-1" />
                             Verified
                           </>
                         ) : (
                           <>
-                            <Mail className="h-4 w-4 mr-1" />
+                            <EnvelopeIcon className="h-4 w-4 mr-1" />
                             Verify
                           </>
                         )}
@@ -294,12 +300,12 @@ export default function Signup() {
                       >
                         {phoneVerified ? (
                           <>
-                            <Shield className="h-4 w-4 mr-1" />
+                            <ShieldCheckIcon className="h-4 w-4 mr-1" />
                             Verified
                           </>
                         ) : (
                           <>
-                            <Phone className="h-4 w-4 mr-1" />
+                            <PhoneIcon className="h-4 w-4 mr-1" />
                             Verify
                           </>
                         )}
@@ -378,7 +384,7 @@ export default function Signup() {
                   {!emailVerified && !phoneVerified && (
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <p className="text-blue-800 text-sm">
-                        <Shield className="h-4 w-4 inline mr-1" />
+                        <ShieldCheckIcon className="h-4 w-4 inline mr-1" />
                         Please verify either your email or phone number to
                         continue.
                       </p>
@@ -427,7 +433,7 @@ export default function Signup() {
                 <div className="space-y-6">
                   <div className="text-center">
                     <div className="mx-auto mb-4 p-3 rounded-full bg-blue-100">
-                      <Mail className="h-8 w-8 text-blue-600" />
+                      <EnvelopeIcon className="h-8 w-8 text-blue-600" />
                     </div>
                     <h3 className="text-xl font-semibold mb-2">
                       Verify Your Email
@@ -487,7 +493,7 @@ export default function Signup() {
                 <div className="space-y-6">
                   <div className="text-center">
                     <div className="mx-auto mb-4 p-3 rounded-full bg-green-100">
-                      <Phone className="h-8 w-8 text-green-600" />
+                      <PhoneIcon className="h-8 w-8 text-green-600" />
                     </div>
                     <h3 className="text-xl font-semibold mb-2">
                       Verify Your Phone

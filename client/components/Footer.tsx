@@ -1,5 +1,5 @@
 import React from "react";
-import { FileText } from "lucide-react";
+import { DocumentTextIcon } from "@heroicons/react/24/outline";
 
 export default function Footer() {
   return (
@@ -10,7 +10,7 @@ export default function Footer() {
             {/* Company Info */}
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <FileText className="h-6 w-6 text-primary" />
+                <DocumentTextIcon className="h-6 w-6 text-primary" />
                 <span className="text-lg font-bold text-gray-900">UDIN</span>
               </div>
               <p className="text-sm text-gray-600">

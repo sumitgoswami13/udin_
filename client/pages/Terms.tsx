@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft, FileText, Scale } from "lucide-react";
+import { ArrowLeftIcon, DocumentTextIcon, ScaleIcon } from "@heroicons/react/24/outline";
 
 export default function Terms() {
   const navigate = useNavigate();
@@ -22,11 +22,11 @@ export default function Terms() {
               className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => navigate("/")}
             >
-              <FileText className="h-8 w-8 text-primary" />
+              <DocumentTextIcon className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-gray-900">UDIN</span>
             </div>
             <Button variant="ghost" onClick={() => navigate(-1)}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back
             </Button>
           </div>
@@ -38,7 +38,7 @@ export default function Terms() {
           <Card>
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
-                <Scale className="h-8 w-8 text-primary" />
+                <ScaleIcon className="h-8 w-8 text-primary" />
               </div>
               <CardTitle className="text-3xl">Terms of Use</CardTitle>
               <CardDescription>

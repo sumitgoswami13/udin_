@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft, FileText, IndianRupee } from "lucide-react";
+import { ArrowLeftIcon, DocumentTextIcon, CurrencyRupeeIcon } from "@heroicons/react/24/outline";
 
 export default function Pricing() {
   const navigate = useNavigate();
@@ -22,11 +22,11 @@ export default function Pricing() {
               className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => navigate("/")}
             >
-              <FileText className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-gray-900">UDIN</span>
+              <DocumentTextIcon className="h-8 w-8 text-primary" />
+              <CurrencyRupeeIcon className="h-8 w-8 text-primary" />
             </div>
             <Button variant="ghost" onClick={() => navigate(-1)}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back
             </Button>
           </div>

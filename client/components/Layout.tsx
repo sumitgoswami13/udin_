@@ -13,12 +13,12 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
-  FileText,
-  LayoutDashboard,
-  User,
-  CreditCard,
-  LogOut,
-} from "lucide-react";
+  DocumentTextIcon,
+  Squares2X2Icon,
+  UserIcon,
+  CreditCardIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -71,13 +71,13 @@ export default function Layout({ children, title }: LayoutProps) {
         {
           id: "dashboard",
           label: "Admin Dashboard",
-          icon: LayoutDashboard,
+          icon: Squares2X2Icon,
           path: "/admin",
         },
         {
           id: "profile",
           label: "Profile",
-          icon: User,
+          icon: UserIcon,
           path: "/profile",
         },
       ]
@@ -85,19 +85,19 @@ export default function Layout({ children, title }: LayoutProps) {
         {
           id: "dashboard",
           label: "Dashboard",
-          icon: LayoutDashboard,
+          icon: Squares2X2Icon,
           path: "/dashboard",
         },
         {
           id: "profile",
           label: "Profile",
-          icon: User,
+          icon: UserIcon,
           path: "/profile",
         },
         {
           id: "transactions",
           label: "Transactions",
-          icon: CreditCard,
+          icon: CreditCardIcon,
           path: "/transactions",
         },
       ];
@@ -109,7 +109,7 @@ export default function Layout({ children, title }: LayoutProps) {
         <Sidebar className="border-r">
           <SidebarHeader className="border-b px-4 lg:px-6 py-4">
             <div className="flex items-center gap-2">
-              <FileText className="h-6 w-6 text-primary" />
+              <DocumentTextIcon className="h-6 w-6 text-primary" />
               <h2 className="font-semibold text-lg hidden sm:block">
                 UDIN Portal
               </h2>
@@ -142,7 +142,7 @@ export default function Layout({ children, title }: LayoutProps) {
                     onClick={() => handleNavigation("logout")}
                     className="w-full justify-start gap-3 px-3 py-2 text-red-600 hover:bg-red-50 hover:text-red-700"
                   >
-                    <LogOut className="h-4 w-4" />
+                    <ArrowRightOnRectangleIcon className="h-4 w-4" />
                     <span className="hidden sm:inline">Logout</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

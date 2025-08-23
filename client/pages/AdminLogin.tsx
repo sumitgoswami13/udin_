@@ -14,14 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
-  Shield,
-  Lock,
-  User,
-  ArrowLeft,
-  Eye,
-  EyeOff,
-  AlertCircle,
-} from "lucide-react";
+  ShieldCheckIcon,
+  LockClosedIcon,
+  UserIcon,
+  ArrowLeftIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -72,12 +72,12 @@ export default function AdminLogin() {
               onClick={() => navigate("/")}
               className="text-gray-600 hover:text-gray-900"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
             <div className="hidden sm:block w-px h-6 bg-gray-300" />
             <div className="hidden sm:flex items-center gap-2">
-              <Shield className="h-5 w-5 text-primary" />
+              <ShieldCheckIcon className="h-5 w-5 text-primary" />
               <h1 className="text-lg font-semibold text-gray-900">
                 Admin Portal
               </h1>
@@ -103,7 +103,7 @@ export default function AdminLogin() {
             <CardHeader className="space-y-4 pb-6">
               <div className="text-center">
                 <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10 w-fit">
-                  <Shield className="h-8 w-8 text-primary" />
+                  <ShieldCheckIcon className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl font-bold text-gray-900">
                   Admin Access
@@ -116,7 +116,7 @@ export default function AdminLogin() {
             <CardContent className="space-y-6">
               {error && (
                 <Alert variant="destructive">
-                  <AlertCircle className="h-4 w-4" />
+                  <ExclamationTriangleIcon className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
@@ -127,7 +127,7 @@ export default function AdminLogin() {
                     Admin Username
                   </Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <UserIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
                       id="username"
                       name="username"
@@ -146,7 +146,7 @@ export default function AdminLogin() {
                     Password
                   </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <LockClosedIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
                       id="password"
                       name="password"
@@ -165,9 +165,9 @@ export default function AdminLogin() {
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
+                        <EyeSlashIcon className="h-4 w-4" />
                       ) : (
-                        <Eye className="h-4 w-4" />
+                        <EyeIcon className="h-4 w-4" />
                       )}
                     </Button>
                   </div>
@@ -198,7 +198,7 @@ export default function AdminLogin() {
           {/* Security Notice */}
           <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <div className="flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+              <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-medium text-yellow-800 mb-1">
                   Security Notice

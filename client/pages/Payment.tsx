@@ -17,13 +17,13 @@ import {
 } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
-  Shield,
-  CheckCircle,
-  Loader2,
-  IndianRupee,
-  AlertCircle,
-  ArrowLeft,
-} from "lucide-react";
+  ShieldCheckIcon,
+  CheckCircleIcon,
+  ArrowPathIcon,
+  CurrencyRupeeIcon,
+  ExclamationTriangleIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/outline";
 import { PricingCalculator, DOCUMENT_TYPES } from "@shared/pricing";
 
 interface PaymentDetails {
@@ -151,7 +151,7 @@ export default function Payment() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <ExclamationTriangleIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <p className="text-lg text-muted-foreground mb-4">
             Invalid payment details. Please start from the upload page.
           </p>
@@ -175,7 +175,7 @@ export default function Payment() {
               onClick={() => navigate(-1)}
               className="text-gray-600 hover:text-gray-900"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back
             </Button>
             <div className="hidden sm:block w-px h-6 bg-gray-300" />
@@ -184,7 +184,7 @@ export default function Payment() {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 text-green-600" />
+            <ShieldCheckIcon className="h-4 w-4 text-green-600" />
             <span className="text-sm text-gray-600">Secured by Razorpay</span>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function Payment() {
           <Card className="border-0 shadow-xl">
             <CardHeader className="text-center pb-6 bg-gradient-to-r from-primary to-primary/80 text-white rounded-t-lg">
               <div className="mx-auto mb-4 p-3 rounded-full bg-white/20">
-                <IndianRupee className="h-8 w-8" />
+                <CurrencyRupeeIcon className="h-8 w-8" />
               </div>
               <CardTitle className="text-2xl font-bold">
                 Payment Summary
@@ -315,7 +315,7 @@ export default function Payment() {
               {/* Error Alert */}
               {error && (
                 <Alert variant="destructive">
-                  <AlertCircle className="h-4 w-4" />
+                  <ExclamationTriangleIcon className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
@@ -346,12 +346,12 @@ export default function Payment() {
               >
                 {isProcessing || isLoading ? (
                   <>
-                    <Loader2 className="h-5 w-5 mr-3 animate-spin" />
+                    <ArrowPathIcon className="h-5 w-5 mr-3 animate-spin" />
                     Processing Payment...
                   </>
                 ) : (
                   <>
-                    <IndianRupee className="h-5 w-5 mr-2" />
+                    <CurrencyRupeeIcon className="h-5 w-5 mr-2" />
                     Pay ₹{orderTotal.totalAmount.toFixed(2)} Now
                   </>
                 )}
@@ -361,7 +361,7 @@ export default function Payment() {
               <div className="text-center space-y-3">
                 <div className="flex justify-center items-center gap-3">
                   <Badge variant="outline" className="text-xs bg-white">
-                    <Shield className="h-3 w-3 mr-1" />
+                    <ShieldCheckIcon className="h-3 w-3 mr-1" />
                     256-bit SSL
                   </Badge>
                   <Badge variant="outline" className="text-xs bg-white">
@@ -412,7 +412,7 @@ export default function Payment() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
+              <CheckCircleIcon className="h-5 w-5 text-green-600" />
               Payment Successful
             </DialogTitle>
             <DialogDescription>

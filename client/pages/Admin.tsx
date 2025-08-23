@@ -373,42 +373,42 @@ export default function Admin() {
       case "uploaded":
         return (
           <Badge variant="secondary" className="text-blue-700 bg-blue-50">
-            <Upload className="h-3 w-3 mr-1" />
+            <ArrowUpTrayIcon className="h-3 w-3 mr-1" />
             Uploaded
           </Badge>
         );
       case "downloaded_by_admin":
         return (
           <Badge variant="secondary" className="text-orange-700 bg-orange-50">
-            <Download className="h-3 w-3 mr-1" />
+            <ArrowDownTrayIcon className="h-3 w-3 mr-1" />
             Downloaded
           </Badge>
         );
       case "in_review":
         return (
           <Badge variant="secondary" className="text-yellow-700 bg-yellow-50">
-            <Clock className="h-3 w-3 mr-1" />
+            <ClockIcon className="h-3 w-3 mr-1" />
             In Review
           </Badge>
         );
       case "signed_uploaded":
         return (
           <Badge variant="secondary" className="text-purple-700 bg-purple-50">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Signed Uploaded
           </Badge>
         );
       case "completed":
         return (
           <Badge variant="secondary" className="text-green-700 bg-green-50">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Completed
           </Badge>
         );
       case "error":
         return (
           <Badge variant="destructive">
-            <AlertCircle className="h-3 w-3 mr-1" />
+            <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
             Error
           </Badge>
         );
@@ -422,21 +422,21 @@ export default function Admin() {
       case "paid":
         return (
           <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Paid
           </Badge>
         );
       case "pending":
         return (
           <Badge variant="secondary">
-            <Clock className="h-3 w-3 mr-1" />
+            <ClockIcon className="h-3 w-3 mr-1" />
             Pending
           </Badge>
         );
       case "failed":
         return (
           <Badge variant="destructive">
-            <AlertCircle className="h-3 w-3 mr-1" />
+            <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
             Failed
           </Badge>
         );
@@ -450,28 +450,28 @@ export default function Admin() {
       case "completed":
         return (
           <Badge variant="secondary" className="text-green-700 bg-green-50">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Completed
           </Badge>
         );
       case "pending":
         return (
           <Badge variant="secondary" className="text-yellow-700 bg-yellow-50">
-            <Clock className="h-3 w-3 mr-1" />
+            <ClockIcon className="h-3 w-3 mr-1" />
             Pending
           </Badge>
         );
       case "failed":
         return (
           <Badge variant="destructive">
-            <AlertCircle className="h-3 w-3 mr-1" />
+            <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
             Failed
           </Badge>
         );
       case "refunded":
         return (
           <Badge variant="secondary" className="text-blue-700 bg-blue-50">
-            <TrendingUp className="h-3 w-3 mr-1" />
+            <TrendingUpIcon className="h-3 w-3 mr-1" />
             Refunded
           </Badge>
         );

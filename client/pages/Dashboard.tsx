@@ -43,22 +43,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  FileText,
-  Download,
-  Edit,
-  Trash2,
-  Search,
-  MoreHorizontal,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  Filter,
-  Upload,
-  Plus,
-  X,
-  Tag,
-  Eye,
-} from "lucide-react";
+  DocumentTextIcon,
+  ArrowDownTrayIcon,
+  PencilIcon,
+  TrashIcon,
+  MagnifyingGlassIcon,
+  EllipsisHorizontalIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  ExclamationTriangleIcon,
+  FunnelIcon,
+  ArrowUpTrayIcon,
+  PlusIcon,
+  XMarkIcon,
+  TagIcon,
+  EyeIcon,
+} from "@heroicons/react/24/outline";
 import {
   Pagination,
   PaginationContent,
@@ -355,42 +355,42 @@ export default function Dashboard() {
       case "completed":
         return (
           <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Completed
           </Badge>
         );
       case "signed":
         return (
           <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Signed
           </Badge>
         );
       case "downloaded_by_admin":
         return (
           <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">
-            <Eye className="h-3 w-3 mr-1" />
+            <EyeIcon className="h-3 w-3 mr-1" />
             Admin Downloaded
           </Badge>
         );
       case "signed_document_uploaded":
         return (
           <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Signed Available
           </Badge>
         );
       case "processing":
         return (
           <Badge variant="secondary">
-            <Clock className="h-3 w-3 mr-1" />
+            <ClockIcon className="h-3 w-3 mr-1" />
             Processing
           </Badge>
         );
       case "error":
         return (
           <Badge variant="destructive">
-            <AlertCircle className="h-3 w-3 mr-1" />
+            <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
             Error
           </Badge>
         );
@@ -475,7 +475,7 @@ export default function Dashboard() {
           className="flex items-center gap-2 w-full sm:w-auto"
           size="sm"
         >
-          <Plus className="h-4 w-4" />
+          <PlusIcon className="h-4 w-4" />
           <span className="hidden sm:inline">Upload More Documents</span>
           <span className="sm:hidden">Upload</span>
         </Button>
@@ -534,12 +534,12 @@ export default function Dashboard() {
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Filter className="h-5 w-5 text-gray-500" />
+              <FunnelIcon className="h-5 w-5 text-gray-500" />
               <CardTitle className="text-lg">Filters</CardTitle>
             </div>
             {hasActiveFilters && (
               <Button variant="outline" size="sm" onClick={clearFilters}>
-                <X className="h-4 w-4 mr-2" />
+                <XMarkIcon className="h-4 w-4 mr-2" />
                 Clear All
               </Button>
             )}
@@ -665,7 +665,7 @@ export default function Dashboard() {
               </CardDescription>
             </div>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search documents..."
                 value={searchTerm}
@@ -706,7 +706,7 @@ export default function Dashboard() {
                     <TableRow key={document.id}>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-gray-500" />
+                          <DocumentTextIcon className="h-4 w-4 text-gray-500" />
                           <span className="font-medium">{document.name}</span>
                         </div>
                       </TableCell>
@@ -733,7 +733,7 @@ export default function Dashboard() {
                             className="text-green-600 border-green-200 hover:bg-green-50"
                             onClick={() => handleDownloadSigned(document)}
                           >
-                            <Download className="h-3 w-3 mr-1" />
+                            <ArrowDownTrayIcon className="h-3 w-3 mr-1" />
                             Download
                           </Button>
                         ) : (
@@ -746,14 +746,14 @@ export default function Dashboard() {
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="h-4 w-4" />
+                              <EllipsisHorizontalIcon className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem
                               onClick={() => handleDownload(document)}
                             >
-                              <Download className="h-4 w-4 mr-2" />
+                              <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
                               Download Original
                             </DropdownMenuItem>
                             {document.signedDocumentUrl && (
@@ -761,7 +761,7 @@ export default function Dashboard() {
                                 onClick={() => handleDownloadSigned(document)}
                                 className="text-green-600 font-medium"
                               >
-                                <Download className="h-4 w-4 mr-2" />
+                                <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
                                 Download Signed Document
                               </DropdownMenuItem>
                             )}
@@ -770,7 +770,7 @@ export default function Dashboard() {
                               disabled={!document.canEdit}
                               className={!document.canEdit ? "opacity-50" : ""}
                             >
-                              <Edit className="h-4 w-4 mr-2" />
+                              <PencilIcon className="h-4 w-4 mr-2" />
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -778,7 +778,7 @@ export default function Dashboard() {
                               disabled={!document.canDelete}
                               className={`${!document.canDelete ? "opacity-50" : "text-red-600"}`}
                             >
-                              <Trash2 className="h-4 w-4 mr-2" />
+                              <TrashIcon className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>
                           </DropdownMenuContent>
@@ -791,7 +791,7 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 No documents found
               </h3>
@@ -806,7 +806,7 @@ export default function Dashboard() {
                 </Button>
               ) : (
                 <Button onClick={handleUploadMore}>
-                  <Upload className="h-4 w-4 mr-2" />
+                  <ArrowUpTrayIcon className="h-4 w-4 mr-2" />
                   Upload Your First Document
                 </Button>
               )}
@@ -916,7 +916,7 @@ export default function Dashboard() {
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
               >
-                <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <ArrowUpTrayIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <p className="text-lg font-medium mb-2">
                   Drag and drop your files here
                 </p>
@@ -960,7 +960,7 @@ export default function Dashboard() {
                         className="flex items-start gap-3 p-3 border rounded-lg bg-white"
                       >
                         <div className="flex-shrink-0 mt-1">
-                          <FileText className="h-4 w-4 text-gray-500" />
+                          <DocumentTextIcon className="h-4 w-4 text-gray-500" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium truncate">
@@ -1002,7 +1002,7 @@ export default function Dashboard() {
                         </div>
                         <div className="flex items-center gap-2">
                           {file.status === "completed" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
+                            <CheckCircleIcon className="h-4 w-4 text-green-500" />
                           )}
                           <Button
                             variant="ghost"
@@ -1010,7 +1010,7 @@ export default function Dashboard() {
                             onClick={() => removeUploadFile(file.id)}
                             className="text-red-500 hover:text-red-700"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <TrashIcon className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>

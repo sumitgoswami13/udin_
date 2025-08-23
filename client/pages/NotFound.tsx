@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileText, Home, ArrowLeft } from "lucide-react";
+import { DocumentTextIcon, HomeIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function NotFound() {
   const navigate = useNavigate();
@@ -22,11 +22,11 @@ export default function NotFound() {
               className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => navigate("/")}
             >
-              <FileText className="h-8 w-8 text-primary" />
+              <DocumentTextIcon className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-gray-900">UDIN</span>
             </div>
             <Button variant="ghost" onClick={() => navigate("/")}>
-              <Home className="h-4 w-4 mr-2" />
+              <HomeIcon className="h-4 w-4 mr-2" />
               Home
             </Button>
           </div>
@@ -49,7 +49,7 @@ export default function NotFound() {
             <CardContent className="space-y-4">
               <div className="space-y-3">
                 <Button onClick={() => navigate("/")} className="w-full">
-                  <Home className="h-4 w-4 mr-2" />
+                  <HomeIcon className="h-4 w-4 mr-2" />
                   Go to Homepage
                 </Button>
                 <Button
@@ -57,7 +57,7 @@ export default function NotFound() {
                   onClick={() => navigate(-1)}
                   className="w-full"
                 >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  <ArrowLeftIcon className="h-4 w-4 mr-2" />
                   Go Back
                 </Button>
               </div>

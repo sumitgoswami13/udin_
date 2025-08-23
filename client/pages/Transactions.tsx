@@ -45,22 +45,22 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import {
-  Search,
-  Download,
-  MoreHorizontal,
-  Filter,
-  X,
-  Receipt,
-  CreditCard,
-  Calendar,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  FileText,
-  CheckCircle,
-  AlertCircle,
-  Clock,
-} from "lucide-react";
+  MagnifyingGlassIcon,
+  ArrowDownTrayIcon,
+  EllipsisHorizontalIcon,
+  FunnelIcon,
+  XMarkIcon,
+  ReceiptPercentIcon,
+  CreditCardIcon,
+  CalendarIcon,
+  CurrencyDollarIcon,
+  TrendingUpIcon,
+  TrendingDownIcon,
+  DocumentTextIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  ClockIcon,
+} from "@heroicons/react/24/outline";
 
 interface Transaction {
   id: string;
@@ -172,28 +172,28 @@ export default function Transactions() {
       case "completed":
         return (
           <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircleIcon className="h-3 w-3 mr-1" />
             Completed
           </Badge>
         );
       case "pending":
         return (
           <Badge variant="secondary">
-            <Clock className="h-3 w-3 mr-1" />
+            <ClockIcon className="h-3 w-3 mr-1" />
             Pending
           </Badge>
         );
       case "failed":
         return (
           <Badge variant="destructive">
-            <AlertCircle className="h-3 w-3 mr-1" />
+            <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
             Failed
           </Badge>
         );
       case "refunded":
         return (
           <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-            <TrendingDown className="h-3 w-3 mr-1" />
+            <TrendingDownIcon className="h-3 w-3 mr-1" />
             Refunded
           </Badge>
         );
@@ -222,13 +222,13 @@ export default function Transactions() {
   const getPaymentMethodIcon = (method: string) => {
     switch (method) {
       case "credit_card":
-        return <CreditCard className="h-4 w-4" />;
+        return <CreditCardIcon className="h-4 w-4" />;
       case "paypal":
-        return <DollarSign className="h-4 w-4" />;
+        return <CurrencyDollarIcon className="h-4 w-4" />;
       case "bank_transfer":
-        return <Receipt className="h-4 w-4" />;
+        return <ReceiptPercentIcon className="h-4 w-4" />;
       default:
-        return <DollarSign className="h-4 w-4" />;
+        return <CurrencyDollarIcon className="h-4 w-4" />;
     }
   };
 
@@ -291,7 +291,7 @@ export default function Transactions() {
             </p>
           </div>
           <Button variant="outline">
-            <Download className="h-4 w-4 mr-2" />
+            <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
             Export Report
           </Button>
         </div>
@@ -301,7 +301,7 @@ export default function Transactions() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                <DollarSign className="h-4 w-4" />
+                <CurrencyDollarIcon className="h-4 w-4" />
                 Total Amount
               </CardTitle>
             </CardHeader>
@@ -316,7 +316,7 @@ export default function Transactions() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                <CheckCircle className="h-4 w-4" />
+                <CheckCircleIcon className="h-4 w-4" />
                 Completed
               </CardTitle>
             </CardHeader>
@@ -337,7 +337,7 @@ export default function Transactions() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+                <ClockIcon className="h-4 w-4" />
                 Pending
               </CardTitle>
             </CardHeader>
@@ -361,12 +361,12 @@ export default function Transactions() {
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Filter className="h-5 w-5 text-gray-500" />
+                <FunnelIcon className="h-5 w-5 text-gray-500" />
                 <CardTitle className="text-lg">Filters</CardTitle>
               </div>
               {hasActiveFilters && (
                 <Button variant="outline" size="sm" onClick={clearFilters}>
-                  <X className="h-4 w-4 mr-2" />
+                  <XMarkIcon className="h-4 w-4 mr-2" />
                   Clear All
                 </Button>
               )}
@@ -435,7 +435,7 @@ export default function Transactions() {
                   Search
                 </label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
                     placeholder="Search transactions..."
                     value={searchTerm}
@@ -524,14 +524,14 @@ export default function Transactions() {
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
+                                <EllipsisHorizontalIcon className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem
                                 onClick={() => handleViewDetails(transaction)}
                               >
-                                <FileText className="h-4 w-4 mr-2" />
+                                <DocumentTextIcon className="h-4 w-4 mr-2" />
                                 View Details
                               </DropdownMenuItem>
                               <DropdownMenuItem
@@ -539,7 +539,7 @@ export default function Transactions() {
                                   handleDownloadInvoice(transaction)
                                 }
                               >
-                                <Download className="h-4 w-4 mr-2" />
+                                <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
                                 Download Invoice
                               </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -552,7 +552,7 @@ export default function Transactions() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Receipt className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <ReceiptPercentIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
                   No transactions found
                 </h3>
@@ -677,7 +677,7 @@ export default function Transactions() {
                             key={index}
                             className="flex items-center gap-2 text-sm"
                           >
-                            <FileText className="h-4 w-4 text-gray-400" />
+                            <DocumentTextIcon className="h-4 w-4 text-gray-400" />
                             <span>{doc}</span>
                           </div>
                         ))}
@@ -691,7 +691,7 @@ export default function Transactions() {
                     variant="outline"
                     onClick={() => handleDownloadInvoice(selectedTransaction)}
                   >
-                    <Download className="h-4 w-4 mr-2" />
+                    <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
                     Download Invoice
                   </Button>
                   <Button onClick={() => setIsDetailsOpen(false)}>Close</Button>

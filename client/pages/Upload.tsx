@@ -29,15 +29,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
-  Trash2,
-  Upload as UploadIcon,
-  FileText,
-  AlertCircle,
-  CheckCircle2,
-  Tag,
-  Calculator,
-  ArrowLeft,
-} from "lucide-react";
+  TrashIcon,
+  ArrowUpTrayIcon,
+  DocumentTextIcon,
+  ExclamationTriangleIcon,
+  CheckCircleIcon,
+  TagIcon,
+  CalculatorIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { DOCUMENT_TYPES, PricingCalculator } from "@shared/pricing";
 
@@ -282,7 +282,7 @@ export default function Upload() {
               className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => navigate("/")}
             >
-              <FileText className="h-8 w-8 text-primary" />
+              <DocumentTextIcon className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-gray-900">UDIN</span>
             </div>
 
@@ -338,7 +338,7 @@ export default function Upload() {
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <UploadIcon className="h-5 w-5" />
+                <ArrowUpTrayIcon className="h-5 w-5" />
                 Upload Documents
               </CardTitle>
               <CardDescription>
@@ -359,7 +359,7 @@ export default function Upload() {
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
               >
-                <UploadIcon className="mx-auto h-8 sm:h-10 lg:h-12 w-8 sm:w-10 lg:w-12 text-gray-400 mb-3 sm:mb-4" />
+                <ArrowUpTrayIcon className="mx-auto h-8 sm:h-10 lg:h-12 w-8 sm:w-10 lg:w-12 text-gray-400 mb-3 sm:mb-4" />
                 <p className="text-base sm:text-lg font-medium mb-2">
                   Drag and drop your files here
                 </p>
@@ -416,7 +416,7 @@ export default function Upload() {
                           )}
                           <div className="space-y-2">
                             <div className="flex items-center gap-2">
-                              <Tag className="h-3 w-3 text-gray-400" />
+                              <TagIcon className="h-3 w-3 text-gray-400" />
                               <Select
                                 value={file.documentTypeId}
                                 onValueChange={(value) =>
@@ -451,16 +451,21 @@ export default function Upload() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          {getStatusIcon(file.status)}
+                          {file.status === "completed" && (
+                            <CheckCircleIcon className="h-4 w-4 text-green-500" />
+                          )}
+                          {file.status === "error" && (
+                            <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />
+                          )}
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => removeFile(file.id)}
                             className="text-red-500 hover:text-red-700"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <TrashIcon className="h-4 w-4" />
                           </Button>
-                        </div>
+                        <DocumentTextIcon className="h-4 w-4" />
                       </div>
                     ))}
                   </div>
@@ -497,7 +502,7 @@ export default function Upload() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Calculator className="h-5 w-5" />
+              <CalculatorIcon className="h-5 w-5" />
               Cost Breakdown
             </DialogTitle>
             <DialogDescription>

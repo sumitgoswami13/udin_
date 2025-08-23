@@ -20,7 +20,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Mail, Lock, ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { 
+  EnvelopeIcon, 
+  LockClosedIcon, 
+  ArrowLeftIcon, 
+  EyeIcon, 
+  EyeSlashIcon 
+} from "@heroicons/react/24/outline";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -82,7 +88,7 @@ export default function Login() {
               onClick={() => navigate("/")}
               className="text-gray-600 hover:text-gray-900"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
             <div className="hidden sm:block w-px h-6 bg-gray-300" />
@@ -136,7 +142,7 @@ export default function Login() {
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <EnvelopeIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
                       id="email"
                       name="email"
@@ -153,7 +159,7 @@ export default function Login() {
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <LockClosedIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
                       id="password"
                       name="password"
@@ -172,9 +178,9 @@ export default function Login() {
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
+                        <EyeSlashIcon className="h-4 w-4" />
                       ) : (
-                        <Eye className="h-4 w-4" />
+                        <EyeIcon className="h-4 w-4" />
                       )}
                     </Button>
                   </div>

@@ -32,17 +32,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Shield,
-  Camera,
-  Edit2,
-  Save,
-  X,
-} from "lucide-react";
+  UserIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  MapPinIcon,
+  CalendarIcon,
+  ShieldCheckIcon,
+  CameraIcon,
+  PencilIcon,
+  CheckIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Profile() {
   const { user, isLoading, error, clearAuthError, updateProfile } = useAuth();
@@ -221,17 +221,17 @@ export default function Profile() {
             {isEditing ? (
               <>
                 <Button variant="outline" onClick={handleEditToggle}>
-                  <X className="h-4 w-4 mr-2" />
+                  <XMarkIcon className="h-4 w-4 mr-2" />
                   Cancel
                 </Button>
                 <Button onClick={handleSave}>
-                  <Save className="h-4 w-4 mr-2" />
+                  <CheckIcon className="h-4 w-4 mr-2" />
                   Save Changes
                 </Button>
               </>
             ) : (
               <Button onClick={handleEditToggle}>
-                <Edit2 className="h-4 w-4 mr-2" />
+                <PencilIcon className="h-4 w-4 mr-2" />
                 Edit Profile
               </Button>
             )}
@@ -270,7 +270,7 @@ export default function Profile() {
                 </div>
                 {isEditing && (
                   <Button variant="outline" size="sm" className="mt-2">
-                    <Camera className="h-4 w-4 mr-2" />
+                    <CameraIcon className="h-4 w-4 mr-2" />
                     Change Photo
                   </Button>
                 )}
@@ -458,7 +458,7 @@ export default function Profile() {
               >
                 <DialogTrigger asChild>
                   <Button variant="outline">
-                    <Shield className="h-4 w-4 mr-2" />
+                    <ShieldCheckIcon className="h-4 w-4 mr-2" />
                     Change Password
                   </Button>
                 </DialogTrigger>
